@@ -387,3 +387,24 @@ a.lr:hover { background: var(--surface-2); }
 .champ-strip { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
 .champ { display: grid; justify-items: center; text-align: center; gap: 4px; padding: 14px 8px; background: var(--surface); border: 1px solid var(--line); }
 .champ:hover { border-color: var(--gold); }
+
+/* ---------- Gazette (newspaper) layout for launched coins ---------- */
+.paper { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); border-top: 3px double var(--frame); border-left: 1px solid var(--line); background: var(--surface); }
+.article { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; color: var(--fg); text-decoration: none; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+.article:hover { background: var(--surface-2); }
+.article .kicker { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rouge); }
+.article .headline { font: 800 24px/1.1 var(--font-display); letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.article .byline { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.art-body { display: block; }
+.art-img { float: left; margin: 2px 12px 4px 0; border: 1px solid var(--frame); object-fit: cover; }
+.art-text { font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.pull { display: flex; gap: 8px; align-items: flex-start; margin: 0; padding: 8px 0 8px 12px; border-left: 3px solid var(--gold); font-style: italic; font-size: 13px; color: var(--muted); }
+.pull > span { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.pull > :first-child { flex: none; }
+.art-foot { margin-top: auto; padding-top: 6px; }
+.art-foot .up { color: var(--ok); } .art-foot .down { color: var(--bad); }
+.article.lead { grid-column: 1 / -1; padding: 24px 28px; }
+.article.lead .headline { font-size: clamp(32px, 5vw, 54px); line-height: 1.02; }
+.article.lead .art-text { font-size: 16px; -webkit-line-clamp: 6; columns: 2; column-gap: 28px; display: block; }
+.article.lead .pull { font-size: 15px; }
+@media (max-width: 700px) { .article.lead .art-text { columns: 1; display: -webkit-box; } }

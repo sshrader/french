@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getAllMarkets, listCoins, listPosts, type Coin, type Market, type Post } from '../lib/api';
-import { CURVE_ON } from '../config';
 import { href } from '../router';
-import CoinCard from '../components/CoinCard';
+import CoinArticle from '../components/CoinArticle';
 import CoinRow from '../components/CoinRow';
 import PetPark from '../components/PetPark';
 
@@ -75,16 +74,10 @@ export default function Explore() {
           <p className="eyebrow mono">Solana memecoin launchpad · Liberté, égalité, baguette</p>
           <h1>Vive la <em>memecoin</em>. Launches baked fresh on the barricades.</h1>
           <p className="lede">
-            One click. One coin. One champion. Every launch summons a legend of France (Napoleon, Joan of Arc, d&apos;Artagnan, Pepe, Gigachad and more) as
-            your coin&apos;s AI persona. It writes your lore, talks back to your holders, and charges the barricades baguette-first, bonking the rowdy cartoon mob
-            right off the cobblestones of Paris. Launch it, meet your champion, hold the line.
+            Launch a coin and a legend of France answers the call: Napoleon, Joan of Arc, d&apos;Artagnan, Pepe, Gigachad and more. As your coin&apos;s AI persona,
+            it writes your lore, talks back to your holders, and storms the barricades baguette-first, bonking the rowdy cartoon mob off the cobblestones of Paris.
+            Pick your coin, meet your champion, hold the line.
           </p>
-          <div className="badges">
-            <span className="badge">⚜️ One-click launch</span>
-            {CURVE_ON && <span className="badge">📈 Trades on a bonding curve from the first second</span>}
-            {CURVE_ON && <span className="badge">🔒 Liquidity locked after graduation</span>}
-            <span className="badge">🤖 Characters are AI parodies, always labelled</span>
-          </div>
           <div className="cta">
             <a className="btn primary" href={href.launch}>Launch a coin</a>
             <a className="btn" href={href.wire}>Read La Gazette</a>
@@ -109,7 +102,7 @@ export default function Explore() {
           </select>
         </label>
         <div className="seg" role="group" aria-label="View">
-          <button type="button" className={view === 'cards' ? 'on' : ''} aria-pressed={view === 'cards'} onClick={() => pickView('cards')}>Cards</button>
+          <button type="button" className={view === 'cards' ? 'on' : ''} aria-pressed={view === 'cards'} onClick={() => pickView('cards')}>Gazette</button>
           <button type="button" className={view === 'list' ? 'on' : ''} aria-pressed={view === 'list'} onClick={() => pickView('list')}>La Carte</button>
         </div>
       </section>
@@ -124,9 +117,9 @@ export default function Explore() {
       )}
       {coins && coins.length > 0 && shown.length === 0 && <p className="muted empty">No coins match "{q}".</p>}
       {view === 'cards' ? (
-        <div className="grid">
-          {shown.map((c) => (
-            <CoinCard key={c.mint} coin={c} latest={latest.get(c.mint)} market={markets[c.mint]} />
+        <div className="paper">
+          {shown.map((c, i) => (
+            <CoinArticle key={c.mint} lead={i === 0 && !q.trim()} coin={c} latest={latest.get(c.mint)} market={markets[c.mint]} />
           ))}
         </div>
       ) : (
