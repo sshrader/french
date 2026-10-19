@@ -305,3 +305,11 @@ h1 em, .hero h1 em { font-style: normal; color: var(--rouge); }
 /* Sticky scrolling: the header stays put, and the search/sort bar sticks right under it while the coins scroll past. */
 html { scroll-padding-top: calc(var(--top-h, 64px) + 8px); }
 .filters { position: sticky; top: var(--top-h, 64px); z-index: 9; background: var(--bg); padding-block: 10px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+
+/* Stacking effect (home page, roomy screens): the hero stays pinned under the header while the street scene,
+   search bar and coins slide up over it like a sheet of paper. */
+.stack-layer { position: relative; z-index: 2; background: var(--bg); padding-top: 14px; }
+@media (min-width: 760px) and (min-height: 600px) {
+  .hero { position: sticky; top: var(--top-h, 64px); z-index: 1; }
+  .stack-layer { border-radius: 22px 22px 0 0; box-shadow: 0 -14px 32px rgba(10, 18, 36, 0.18); margin-top: 8px; }
+}

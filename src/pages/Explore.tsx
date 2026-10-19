@@ -74,6 +74,7 @@ export default function Explore() {
         </div>
       </section>
 
+      <div className="stack-layer">
       {coins && coins.length > 0 && <PetPark />}
 
       <section className="filters">
@@ -104,6 +105,7 @@ export default function Explore() {
         {shown.map((c) => (
           <CoinCard key={c.mint} coin={c} latest={latest.get(c.mint)} market={markets[c.mint]} />
         ))}
+      </div>
       </div>
     </div>
   );
