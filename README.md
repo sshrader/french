@@ -14,6 +14,8 @@ npm run dev       # API on :8787, site on http://localhost:5173
 
 The default `.env` runs on **devnet** with local storage, so nothing costs real money. Open http://localhost:5173, connect Phantom set to Devnet, press **Get test SOL**, and launch a coin. Edit `.env` any time to add a Pinata key (images show up in wallets), an LLM key (pets talk for real) or the bonding-curve config. See the comments in `.env.example`.
 
+**Block-zero dev buy.** With the curve on, the Launch form has an optional dev buy (in SOL). The creator's buy is built into the same transaction as pool creation (`createPoolWithFirstBuy`), so nobody can buy before the creator. The server reads the tokens the creator holds straight from that transaction and shows "Block-zero dev buy: N tokens (x% of supply)" on the coin page, so it is always disclosed and cannot be faked from the browser. The cap is `VITE_MAX_DEV_BUY_SOL`. Untested on-chain so far: try it on devnet first.
+
 ## 1. Prepare Phantom (devnet)
 
 1. Create a **separate Phantom account just for development**. Never use one that holds real funds.
