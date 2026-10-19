@@ -12,7 +12,7 @@ function toPet(c: Coin): WorldPet {
   return { mint: c.mint, petId: c.cat.id, look: petLook(c.cat.id), name: c.cat.name, symbol: c.symbol };
 }
 
-// A shared top-down park. Every coin's pet lives here and wanders around; the coin's own pet is marked with an arrow.
+// A shared top-down Paris street. Every coin's character holds the barricades and bonks the cartoon mob; the coin's own character is marked with an arrow.
 // Tap a character for a hop and its latest diary line. Tap a name tag to open that coin.
 export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -29,6 +29,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
   const [visible, setVisible] = useState(true);
   const [coins, setCoins] = useState<Coin[]>(coin ? [coin] : []);
   const [latest, setLatest] = useState<Record<string, string>>({});
+  const [routed, setRouted] = useState(0);
   const [bubble, setBubble] = useState<{ mint: string; text: string } | null>(null);
   const playRef = useRef(playing && visible);
   playRef.current = playing && visible;
@@ -111,6 +112,11 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
   }, [world, placeTags, shown]);
 
   useEffect(() => {
+    const t = setInterval(() => setRouted(world.stats().routed), 1000);
+    return () => clearInterval(t);
+  }, [world]);
+
+  useEffect(() => {
     if (!bubble) return;
     const t = setTimeout(() => setBubble(null), 6500);
     return () => clearTimeout(t);
@@ -137,11 +143,11 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
   const pet = coin?.cat;
 
   return (
-    <section className="card park" aria-label="The Bonkeparte park" ref={box}>
+    <section className="card park" aria-label="The barricades" ref={box}>
       <div className="park-h">
         <div>
-          <p className="eyebrow mono">The park</p>
-          <h3>{pet && shown.length === 1 ? `${pet.name} has the park to itself` : `${shown.length} ${shown.length === 1 ? 'character' : 'characters'} out and about`}</h3>
+          <p className="eyebrow mono">The barricades</p>
+          <h3>{pet && shown.length === 1 ? `${pet.name} holds the barricade alone` : `${shown.length} ${shown.length === 1 ? 'character' : 'characters'} holding the line`}</h3>
         </div>
         <button type="button" className="btn" onClick={() => setPlaying((p) => !p)} aria-pressed={!playing}>
           {playing ? 'Pause' : 'Play'}
@@ -155,7 +161,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
           height={H}
           className="park-canvas"
           role="img"
-          aria-label={`A pixel park where ${shown.length} AI characters wander.${pet ? ` ${pet.name}, this coin's pet, is marked with an arrow.` : ''}`}
+          aria-label={`A pixel Paris street where ${shown.length} AI characters hold the barricades and bonk a cartoon mob with baguettes.${pet ? ` ${pet.name}, this coin's pet, is marked with an arrow.` : ''}`}
           onPointerMove={(e) => {
             const p = logical(e);
             const m = world.hitTest(p.x, p.y);
@@ -204,7 +210,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
         )}
       </div>
       <p className="muted small park-foot">
-        Tap a character for a hop and its latest diary line. Name tags show each character's coin and open its page.{pet ? ` The arrow marks ${pet.name}.` : ''}
+        Cartoon mob bonked so far: {routed}. Tap a character for a hop and its latest diary line. Name tags show each character's coin and open its page.{pet ? ` The arrow marks ${pet.name}.` : ''}
         {reduce ? ' Motion is paused because your device asks for less movement. Press Play to start it.' : ''}
       </p>
     </section>

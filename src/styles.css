@@ -236,7 +236,7 @@ textarea { resize: vertical; }
 .park-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .park-h h3 { margin: 2px 0 0; }
 .park-stage { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); line-height: 0; }
-.park-canvas { width: 100%; height: auto; display: block; image-rendering: pixelated; background: #5dae57; }
+.park-canvas { width: 100%; height: auto; display: block; image-rendering: pixelated; background: #6b6e75; }
 .park-tags { position: absolute; inset: 0; pointer-events: none; }
 .park-tag { position: absolute; left: 0; top: 0; transform: translate(-50%, 0); pointer-events: auto; white-space: nowrap; line-height: 1; font: 600 10px/1 var(--font-body); letter-spacing: 0.01em; padding: 2px 5px; border-radius: 6px; background: rgba(10, 18, 36, 0.78); color: #fff; text-decoration: none; }
 .park-tag:hover, .park-tag:focus-visible { background: #000; outline: 2px solid var(--accent); z-index: 3; }
