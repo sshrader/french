@@ -58,14 +58,14 @@ export default function Explore() {
           <p className="eyebrow mono">Solana memecoin launchpad · Liberté, égalité, memecoin</p>
           <h1>Vive la memecoin. Storm the Bastille of boring launches.</h1>
           <p className="lede">
-            Launch your coin in one click. Every coin on Bonkeparte is paired with a random AI cat or dog that writes its lore, chats with its holders, and roams a
-            shared pixel park with every other coin's pet. Meet yours the moment you launch.
+            Launch your coin in one click. Every coin on Bonkeparte is paired with a random French hero or French-themed meme (Napoleon, Joan of Arc, d'Artagnan, Pepe, Gigachad and friends) that writes its lore, chats with its
+            holders, and roams a shared pixel park with every other coin's character. Meet yours the moment you launch.
           </p>
           <div className="badges">
             <span className="badge">⚜️ One-click launch</span>
             {CURVE_ON && <span className="badge">📈 Trades on a bonding curve from the first second</span>}
             {CURVE_ON && <span className="badge">🔒 Liquidity locked after graduation</span>}
-            <span className="badge">🤖 Pets are AI, always labelled</span>
+            <span className="badge">🤖 Characters are AI parodies, always labelled</span>
           </div>
           <div className="cta">
             <a className="btn primary" href={href.launch}>Launch a coin</a>

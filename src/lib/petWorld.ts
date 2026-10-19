@@ -2,7 +2,8 @@
 // Pure canvas code with no React and no imports, so it can be tested on its own.
 
 export type PetLook = {
-  species: 'cat' | 'dog';
+  species: 'cat' | 'dog' | 'hero' | 'meme';
+  sprite?: string; // a picture from /heroes/<id>-sprite.png instead of the drawn pet
   coat: string;
   coat2: string;
   ear: string;
@@ -178,8 +179,52 @@ function turned(src: HTMLCanvasElement, dir: Dir): HTMLCanvasElement {
 
 type SpriteSet = Record<Dir, [HTMLCanvasElement, HTMLCanvasElement, HTMLCanvasElement]>;
 const spriteCache = new Map<string, SpriteSet>();
+const heroImg = new Map<string, HTMLImageElement>();
+function heroImage(id: string): HTMLImageElement | null {
+  if (typeof Image === 'undefined') return null;
+  let img = heroImg.get(id);
+  if (!img) {
+    img = new Image();
+    img.src = `/heroes/${id}-sprite.png`;
+    heroImg.set(id, img);
+  }
+  return img.complete && img.naturalWidth > 0 ? img : null;
+}
+// A character picture as three walking frames (the same picture, bobbing a little). Facing left mirrors it.
+function heroFrames(img: HTMLImageElement, flip: boolean): [HTMLCanvasElement, HTMLCanvasElement, HTMLCanvasElement] {
+  const make = (dy: number) => {
+    const c = mk(20, 20);
+    const g = c.getContext('2d')!;
+    g.imageSmoothingEnabled = true;
+    g.imageSmoothingQuality = 'high';
+    if (flip) {
+      g.translate(20, 0);
+      g.scale(-1, 1);
+    }
+    g.drawImage(img, 0, 0 + dy, 20, 20);
+    return c;
+  };
+  return [make(0), make(-1), make(0)];
+}
 function spritesFor(petId: string, look: PetLook): SpriteSet {
   let s = spriteCache.get(petId);
+  if (!s && look.sprite) {
+    const img = heroImage(look.sprite);
+    if (!img) {
+      // not loaded yet: show a plain dot for now and build the real frames on a later frame
+      const dot = mk(18, 18);
+      const g = dot.getContext('2d')!;
+      g.fillStyle = '#c9d4f2';
+      g.beginPath();
+      g.arc(9, 9, 6, 0, Math.PI * 2);
+      g.fill();
+      return { up: [dot, dot, dot], right: [dot, dot, dot], down: [dot, dot, dot], left: [dot, dot, dot] };
+    }
+    const r = heroFrames(img, false);
+    const l = heroFrames(img, true);
+    s = { up: r, right: r, down: r, left: l };
+    spriteCache.set(petId, s);
+  }
   if (!s) {
     const base = [paintUp(look, 0), paintUp(look, 1), paintUp(look, 2)] as const;
     s = {} as SpriteSet;

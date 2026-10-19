@@ -11,16 +11,8 @@ import CoinPage from './pages/CoinPage';
 import Admin from './pages/Admin';
 
 function Hat() {
-  // A bicorne hat with a tricolour cockade
-  return (
-    <svg className="paw" viewBox="0 0 32 32" aria-hidden="true">
-      <path d="M2 21c3-9 8-13 14-13s11 4 14 13c-4-3-9-5-14-5S6 18 2 21z" fill="currentColor" />
-      <path d="M6 23c3-2 6-3 10-3s7 1 10 3c-3 3-6 4-10 4s-7-1-10-4z" fill="currentColor" opacity="0.65" />
-      <circle cx="16" cy="14" r="3.4" fill="#fff" />
-      <circle cx="16" cy="14" r="2" fill="#ef4135" />
-      <circle cx="16" cy="14" r="0.9" fill="#1d4ed8" />
-    </svg>
-  );
+  // The Bonkeparte mark: the emperor in his laurels
+  return <img className="paw" src="/brand-mark.png" width={30} height={30} alt="" style={{ borderRadius: '50%', objectFit: 'cover' }} />;
 }
 
 export default function App() {
@@ -121,7 +113,7 @@ export default function App() {
 
       <footer className="wrap foot muted">
         {IS_MAINNET
-          ? 'Bonkeparte is unaudited beta software. Pets are AI characters and their posts are not advice. Coins are not endorsed by Bonkeparte. Only risk what you can lose.'
+          ? 'Bonkeparte is unaudited beta software. Characters are AI parodies and their posts are not advice. Coins are not endorsed by Bonkeparte. Only risk what you can lose.'
           : `Prototype running on ${CLUSTER}. Not audited.`}
       </footer>
     </>

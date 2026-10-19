@@ -14,7 +14,7 @@ const PHASE_TEXT: Record<Phase, string> = {
   uploading: 'Uploading image and metadata…',
   signing: 'Approve the transaction in your wallet…',
   confirming: 'Waiting for the network to confirm…',
-  registering: 'Verifying on chain and pairing your pet…',
+  registering: 'Verifying on chain and pairing your character…',
   done: '',
 };
 
@@ -202,7 +202,7 @@ export default function CreateCoinForm({ balance, onCreated }: { balance: number
             <b>{created.name}</b> (${created.symbol}) is live!
           </p>
           <p>
-            Your pet is <b>{created.cat.name}</b>, a {created.cat.breed.toLowerCase()} with a {voiceLabel(created.cat.voice).toLowerCase()} voice.
+            Your character is <b>{created.cat.name}</b>, {created.cat.breed}, with a {voiceLabel(created.cat.voice).toLowerCase()} voice.
           </p>
           <a className="btn primary big" href={href.coin(created.mint)}>
             Go to your coin page →

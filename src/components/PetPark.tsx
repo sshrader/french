@@ -13,7 +13,7 @@ function toPet(c: Coin): WorldPet {
 }
 
 // A shared top-down park. Every coin's pet lives here and wanders around; the coin's own pet is marked with an arrow.
-// Tap a pet for a hop and its latest diary line. Tap a name tag to open that coin.
+// Tap a character for a hop and its latest diary line. Tap a name tag to open that coin.
 export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -125,7 +125,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
     const c = shown.find((x) => x.mint === mint);
     if (!c) return;
     world.hop(mint);
-    const text = (mint === coin?.mint ? line : latest[mint]) || (speciesOf(c.cat) === 'dog' ? `${c.cat.name} wags its tail.` : `${c.cat.name} gives a slow blink.`);
+    const text = (mint === coin?.mint ? line : latest[mint]) || `${c.cat.name} strikes a pose.`;
     setBubble({ mint, text });
     if (!playRef.current) {
       const g = canvas.current?.getContext('2d');
@@ -141,7 +141,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
       <div className="park-h">
         <div>
           <p className="eyebrow mono">The park</p>
-          <h3>{pet && shown.length === 1 ? `${pet.name} has the park to itself` : `${shown.length} ${shown.length === 1 ? 'pet' : 'pets'} out and about`}</h3>
+          <h3>{pet && shown.length === 1 ? `${pet.name} has the park to itself` : `${shown.length} ${shown.length === 1 ? 'character' : 'characters'} out and about`}</h3>
         </div>
         <button type="button" className="btn" onClick={() => setPlaying((p) => !p)} aria-pressed={!playing}>
           {playing ? 'Pause' : 'Play'}
@@ -155,7 +155,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
           height={H}
           className="park-canvas"
           role="img"
-          aria-label={`A top-down pixel park where ${shown.length} AI pets wander.${pet ? ` ${pet.name}, this coin's pet, is marked with an arrow.` : ''}`}
+          aria-label={`A pixel park where ${shown.length} AI characters wander.${pet ? ` ${pet.name}, this coin's pet, is marked with an arrow.` : ''}`}
           onPointerMove={(e) => {
             const p = logical(e);
             const m = world.hitTest(p.x, p.y);
@@ -169,7 +169,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
             if (m) poke(m);
           }}
         />
-        <div className="park-tags" aria-label="Pets in the park">
+        <div className="park-tags" aria-label="Characters in the park">
           {shown.map((c) => (
             <a
               key={c.mint}
@@ -179,7 +179,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
               }}
               className={`park-tag${c.mint === coin?.mint ? ' me' : ''}`}
               href={href.coin(c.mint)}
-              title={`${c.name} ($${c.symbol}) with ${c.cat.name} the ${c.cat.breed.toLowerCase()}`}
+              title={`${c.name} ($${c.symbol}) with ${c.cat.name}, ${c.cat.breed}`}
               onPointerEnter={() => world.hold(c.mint)}
               onPointerLeave={() => world.hold(null)}
               onFocus={() => world.hold(c.mint)}
@@ -204,7 +204,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
         )}
       </div>
       <p className="muted small park-foot">
-        Tap a pet for a hop and its latest diary line. Name tags show each pet's coin and open its page.{pet ? ` The arrow marks ${pet.name}.` : ''}
+        Tap a character for a hop and its latest diary line. Name tags show each character's coin and open its page.{pet ? ` The arrow marks ${pet.name}.` : ''}
         {reduce ? ' Motion is paused because your device asks for less movement. Press Play to start it.' : ''}
       </p>
     </section>

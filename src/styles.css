@@ -59,7 +59,7 @@ img { max-width: 100%; }
 .top { border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: 0; z-index: 10; }
 .top-in { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 12px; }
 .brand { display: flex; align-items: center; gap: 9px; color: var(--fg); text-decoration: none; font: 800 22px var(--font-display); letter-spacing: -0.03em; }
-.paw { width: 26px; height: 26px; color: var(--accent); }
+.paw { width: 30px; height: 30px; color: var(--accent); }
 .nav { display: flex; gap: 4px; }
 .nav a { color: var(--muted); text-decoration: none; font-weight: 600; border-radius: 999px; padding: 7px 14px; }
 .nav a:hover { color: var(--fg); }

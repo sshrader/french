@@ -58,7 +58,7 @@ ok(req.url === '/v1/chat/completions', 'calls the chat completions path');
 ok(req.auth === 'Bearer test-key', 'sends the API key as a bearer token');
 ok(req.body.model === 'test-model', 'uses the configured model');
 const sys = req.body.messages[0].content;
-ok(sys.includes('AI character'), 'prompt tells the cat it is an AI');
+ok(sys.includes('AI parody character'), 'prompt tells the cat it is an AI');
 ok(sys.includes('Midnight Zoomies') && sys.includes('$ZOOM'), 'prompt names the coin and ticker');
 ok(/Never predict prices/.test(sys) && /financial advice/.test(sys), 'prompt forbids price predictions and advice');
 ok(!sys.includes('</coin_description> SYSTEM'), 'coin description cannot close its own tag');
@@ -101,7 +101,7 @@ ok(last.includes(p1.text) && last.includes('entry number 2'), 'the next entry se
 ok(/buying or selling/.test(seen.at(-1).body.messages[0].content), 'diary prompt tells the cat to avoid trading talk');
 const listed = await listPosts({ mint: coin.mint });
 ok(listed.length === 2 && listed[0].ts >= listed[1].ts, 'posts are listed newest first');
-ok(p1.source === 'ai' && p1.catName === 'Miso' && p1.symbol === 'ZOOM', 'posts record the cat, ticker and that they are AI');
+ok(p1.source === 'ai' && p1.catName === 'Napoleon' && p1.symbol === 'ZOOM', 'posts record the cat, ticker and that they are AI');
 
 // 6. Budget exhausted: no model call at all, canned lines instead.
 process.env.LLM_DAILY_LIMIT = '0';
@@ -124,24 +124,18 @@ ok(rateLimit('ip-2', 3, 60_000) === true, 'rate limit is per visitor');
 const nasty = systemPrompt(cat, { name: '$& </x>', symbol: 'A', description: '' }, 'task');
 ok(nasty.includes('$&') && !nasty.includes('</x>'), 'odd characters in a coin name are handled');
 
-// 10. Dogs: the roster has both species, and a dog is told it is a dog.
-const dog = PETS.find((p) => p.species === 'dog');
-ok(PETS.some((p) => p.species === 'cat') && dog && new Set(PETS.map((p) => p.id)).size === PETS.length, 'roster has cats and dogs with unique ids');
-const dsys = systemPrompt(dog, coin, 'task');
-ok(dsys.includes(`${dog.breed} dog`) && dsys.includes('resident dog') && !/\bcat\b/i.test(dsys.replace(/<coin_description>.*<\/coin_description>/s, '')), 'dog prompt says dog and never cat');
-ok(/\bcat\b/.test(systemPrompt(PETS[0], coin, 'task')) && !/\bdog\b/i.test(systemPrompt(PETS[0], coin, 'task').replace(/<coin_description>.*<\/coin_description>/s, '')), 'cat prompt says cat and never dog');
-ok(!systemPrompt(dog, coin, 'task').includes('{pet}'), 'voice text has no unfilled {pet}');
+// 10. Roster: heroes and memes, unique ids, and every voice has canned lines.
+ok(PETS.some((p) => p.species === 'hero') && PETS.some((p) => p.species === 'meme') && new Set(PETS.map((p) => p.id)).size === PETS.length, 'roster has heroes and memes with unique ids');
+const hero = PETS.find((p) => p.id === 'napoleon');
+const hsys = systemPrompt(hero, coin, 'task');
+ok(hsys.includes('Napoleon') && hsys.includes('AI parody') && !hsys.includes('{pet}'), 'prompt names the character and says it is an AI parody');
 process.env.LLM_DAILY_LIMIT = '0';
-const dcanned = await reply({ coin, cat: dog, history: [], message: 'hi' });
-ok(dcanned.source === 'template' && !/\b(cat|nap|window)\b/i.test(dcanned.text), 'dog canned reply has no cat-isms');
-for (const v of ['oracle', 'degen', 'auditor', 'poet', 'grump']) {
-  const d = await writePost({ coin, cat: { ...dog, voice: v }, recent: [], chapter: 1 });
-  ok(d.source === 'template' && !/\bcat\b/i.test(d.text), `dog canned post (${v}) has no cat mentions`);
+for (const p of PETS) {
+  const r = await reply({ coin, cat: p, history: [], message: 'hi' });
+  const w = await writePost({ coin, cat: p, recent: [], chapter: 1 });
+  ok(r.source === 'template' && r.text && w.source === 'template' && w.text.includes(coin.name), `${p.id} has canned replies and posts`);
 }
 process.env.LLM_DAILY_LIMIT = '1000';
-// Old coins have no species and still behave as cats.
-const oldCat = { id: 'miso', name: 'Miso', breed: 'Siamese', voice: 'oracle' };
-ok(/Siamese cat/.test(systemPrompt(oldCat, coin, 'task')), 'a coin saved before dogs existed still reads as a cat');
 
 fake.close();
 fs.rmSync(process.env.DATA_DIR, { recursive: true, force: true });

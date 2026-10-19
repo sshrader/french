@@ -1,37 +1,31 @@
-// The pet roster as the browser needs it. Keep in sync with server/pets.mjs.
-export type Species = 'cat' | 'dog';
+// The character roster as the browser needs it. Keep in sync with server/pets.mjs.
+export type Species = 'hero' | 'meme';
 
 export const PET_ROSTER = [
-  { id: 'miso', species: 'cat', name: 'Miso', breed: 'Siamese', voice: 'oracle' },
-  { id: 'biscuit', species: 'cat', name: 'Biscuit', breed: 'Orange tabby', voice: 'degen' },
-  { id: 'pickles', species: 'cat', name: 'Pickles', breed: 'Tuxedo', voice: 'auditor' },
-  { id: 'sable', species: 'cat', name: 'Sable', breed: 'Black shorthair', voice: 'poet' },
-  { id: 'waffles', species: 'cat', name: 'Waffles', breed: 'Grey tabby', voice: 'grump' },
-  { id: 'noodle', species: 'cat', name: 'Noodle', breed: 'Calico', voice: 'degen' },
-  { id: 'pixel', species: 'cat', name: 'Pixel', breed: 'Russian blue', voice: 'auditor' },
-  { id: 'mochi', species: 'cat', name: 'Mochi', breed: 'Ragdoll', voice: 'oracle' },
-  { id: 'kuri', species: 'dog', name: 'Kuri', breed: 'Shiba Inu', voice: 'degen' },
-  { id: 'maple', species: 'dog', name: 'Maple', breed: 'Akita Inu', voice: 'poet' },
-  { id: 'pretzel', species: 'dog', name: 'Pretzel', breed: 'Corgi', voice: 'grump' },
-  { id: 'juno', species: 'dog', name: 'Juno', breed: 'Husky', voice: 'oracle' },
-  { id: 'scout', species: 'dog', name: 'Scout', breed: 'Border collie', voice: 'auditor' },
-  { id: 'clover', species: 'dog', name: 'Clover', breed: 'Golden retriever', voice: 'degen' },
-  { id: 'bruno', species: 'dog', name: 'Bruno', breed: 'Pug', voice: 'grump' },
-  { id: 'olive', species: 'dog', name: 'Olive', breed: 'Dachshund', voice: 'oracle' },
+  { id: 'napoleon', species: 'hero', name: 'Napoleon', breed: 'The Little Corporal', voice: 'napoleon' },
+  { id: 'joan', species: 'hero', name: 'Joan of Arc', breed: 'The Maid of Orléans', voice: 'joan' },
+  { id: 'dartagnan', species: 'hero', name: "D'Artagnan", breed: 'The Fourth Musketeer', voice: 'dartagnan' },
+  { id: 'vercingetorix', species: 'hero', name: 'Vercingetorix', breed: 'Chief of the Gauls', voice: 'vercingetorix' },
+  { id: 'trollface', species: 'meme', name: 'Trollface', breed: 'Problem?', voice: 'trollface' },
+  { id: 'pepe', species: 'meme', name: 'Pepe', breed: 'Good Vibes Frog', voice: 'pepe' },
+  { id: 'gigachad', species: 'meme', name: 'Gigachad', breed: 'Le Chad', voice: 'gigachad' },
+  { id: 'wojak', species: 'meme', name: 'Wojak', breed: 'The Feels Guy', voice: 'wojak' },
 ] as const;
 
 const VOICE_LABEL: Record<string, string> = {
-  oracle: 'Mystic',
-  degen: 'Hype',
-  auditor: 'Deadpan',
-  poet: 'Lyrical',
-  grump: 'Grumpy',
+  napoleon: 'Imperial',
+  joan: 'Devout',
+  dartagnan: 'Swashbuckling',
+  vercingetorix: 'Defiant',
+  trollface: 'Trolling',
+  pepe: 'Chill',
+  gigachad: 'Confident',
+  wojak: 'Melancholic',
 };
 
 export const voiceLabel = (voice: string): string => VOICE_LABEL[voice] ?? voice;
 
-/** Coins saved before dogs existed have no species, so they count as cats. */
 export function speciesOf(pet: { id: string; species?: string }): Species {
-  if (pet.species === 'dog' || pet.species === 'cat') return pet.species;
-  return PET_ROSTER.find((p) => p.id === pet.id)?.species ?? 'cat';
+  if (pet.species === 'hero' || pet.species === 'meme') return pet.species;
+  return PET_ROSTER.find((p) => p.id === pet.id)?.species ?? 'hero';
 }

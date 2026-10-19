@@ -1,4 +1,4 @@
-export type Cat = { id: string; name: string; breed: string; voice: string; species?: 'cat' | 'dog' };
+export type Cat = { id: string; name: string; breed: string; voice: string; species?: 'hero' | 'meme' };
 
 export type Coin = {
   mint: string;

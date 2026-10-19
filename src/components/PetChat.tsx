@@ -50,7 +50,7 @@ export default function PetChat({ coin }: { coin: Coin }) {
         <div>
           <h3>Text {cat.name}</h3>
           <p className="muted small">
-            {cat.breed} · {voiceLabel(cat.voice)} voice · an AI pet, not a financial advisor
+            {cat.breed} · {voiceLabel(cat.voice)} voice · an AI parody character, not a financial advisor
           </p>
         </div>
       </div>

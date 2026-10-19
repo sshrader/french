@@ -9,18 +9,18 @@ export default function Launch({ balance, onCreated }: { balance: number | null;
         <p className="eyebrow mono">New coin</p>
         <h1>Launch a coin</h1>
         <p className="lede">
-          Fill in the basics. One wallet approval creates the token and revokes mint and freeze authority. A cat or dog is paired to your coin when it is registered.
+          Fill in the basics. One wallet approval creates the token and revokes mint and freeze authority. A famous French hero or a French-themed meme is paired to your coin when it is registered.
         </p>
       </header>
       <div className="launch">
         <CreateCoinForm balance={balance} onCreated={onCreated} />
         <div className="stack">
           <section className="card">
-            <h3>Meet the pets</h3>
+            <h3>Meet the characters</h3>
             <p className="muted small">One of these is paired to your coin, chosen from its address. You cannot reroll it.</p>
-            {(['cat', 'dog'] as const).map((sp) => (
+            {(['hero', 'meme'] as const).map((sp) => (
               <div key={sp}>
-                <p className="eyebrow mono roster-h">{sp === 'cat' ? 'Cats' : 'Dogs'}</p>
+                <p className="eyebrow mono roster-h">{sp === 'hero' ? 'French heroes' : 'Memes, en français'}</p>
                 <div className="roster">
                   {PET_ROSTER.filter((c) => c.species === sp).map((c) => (
                     <div className="rostercat" key={c.id}>
@@ -39,8 +39,8 @@ export default function Launch({ balance, onCreated }: { balance: number | null;
             <ol className="how">
               <li>Your image and details are stored on IPFS.</li>
               <li>You approve one transaction in your wallet.</li>
-              <li>The server checks the chain, then pairs your cat.</li>
-              <li>Your pet writes its first diary entry within seconds.</li>
+              <li>The server checks the chain, then pairs your character.</li>
+              <li>Your character writes its first diary entry within seconds.</li>
             </ol>
           </section>
         </div>

@@ -42,13 +42,15 @@ Run `npm run dry-run -- --send` first if you can. It tests the on-chain part wit
 2. **One transaction** (`src/lib/createCoin.ts`), signed in Phantom: create mint, initialise (6 decimals), create your token account, mint 1,000,000,000 tokens, attach the metadata, revoke mint authority, revoke freeze authority. All or nothing.
 3. **Register.** The browser sends the mint and signature to `POST /api/coins`. The server does not trust it. It reads the chain itself and rejects the coin unless the mint exists, both authorities are revoked, and the transaction succeeded and was paid by the creator. It then pairs a pet (cat or dog) by hashing the mint address, so the pairing looks random but cannot be rerolled.
 
-## The cats
+## The characters
 
-Every coin's cat can talk and write.
+Every coin is paired with a random French hero (Napoleon, Joan of Arc, d'Artagnan, Vercingetorix) or French-themed meme (Trollface, Pepe, Gigachad, Wojak), picked from its mint address. The pixel-art pictures live in `public/heroes/` (a portrait and a transparent park sprite for each). They are played as AI parodies and labelled as such. Check the rights to the meme characters before launching commercially.
+
+Every coin's character can talk and write.
 
 - **Chat.** Each coin page has a chat with its cat. `POST /api/coins/:mint/chat` (single coin: `GET /api/coins/:mint`) sends the message and the last few turns to the model and returns the reply.
 - **Lore.** When a coin is registered its cat writes a first diary entry, then a new one every `CAT_POST_MINUTES` (varies per coin). Entries are stored in `server/data/posts.json`, shown on the coin card and in the La Gazette feed, and each continues from the cat's last three entries.
-- **Voices.** Five voices (mystic, hype, deadpan, lyrical, grumpy) are defined in `server/pets.mjs`. Edit the style lines to change how a cat sounds.
+- **Voices.** Each character has its own voice, defined in `server/pets.mjs` (with canned fallback lines in `server/petbrain.mjs`). Edit the style lines to change how one sounds.
 - **AI brain.** `server/llm.mjs` calls any OpenAI-compatible chat API. Put `LLM_API_KEY` in `.env` (Groq has a free tier, see `.env.example`) and restart. With no key the cats answer from canned lines and say so.
 - **Safety rules** are in `server/petbrain.mjs`. Pets say they are AI, never predict prices or tell anyone to buy or sell, and treat coin descriptions and chat messages as untrusted text. Replies are stripped of links and markdown. Posts are labelled AI in the UI.
 - **Cost control.** Chat is limited to 12 messages a minute per visitor, and the server stops calling the model after `LLM_DAILY_LIMIT` calls a day (lore posts stop earlier, at 70%, so chat keeps working). After that, cats fall back to canned lines.
