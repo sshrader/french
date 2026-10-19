@@ -3,6 +3,7 @@ import { getAllMarkets, listCoins, listPosts, type Coin, type Market, type Post 
 import { CURVE_ON } from '../config';
 import { href } from '../router';
 import CoinCard from '../components/CoinCard';
+import CoinRow from '../components/CoinRow';
 import PetPark from '../components/PetPark';
 
 export default function Explore() {
@@ -11,6 +12,13 @@ export default function Explore() {
   const [error, setError] = useState('');
   const [q, setQ] = useState('');
   const [sort, setSort] = useState<'new' | 'mc'>('new');
+  const [view, setView] = useState<'cards' | 'list'>(() => {
+    try {
+      return localStorage.getItem('bp-view') === 'list' ? 'list' : 'cards';
+    } catch {
+      return 'cards';
+    }
+  });
   const [markets, setMarkets] = useState<Record<string, Omit<Market, 'history'>>>({});
 
   useEffect(() => {
@@ -38,6 +46,15 @@ export default function Explore() {
   }, []);
 
   // Posts arrive newest first, so the first one seen for a coin is its latest.
+  const pickView = (v: 'cards' | 'list') => {
+    setView(v);
+    try {
+      localStorage.setItem('bp-view', v);
+    } catch {
+      /* ignore */
+    }
+  };
+
   const latest = useMemo(() => {
     const m = new Map<string, Post>();
     for (const p of posts) if (!m.has(p.mint)) m.set(p.mint, p);
@@ -91,6 +108,10 @@ export default function Explore() {
             <option value="mc">Highest market cap</option>
           </select>
         </label>
+        <div className="seg" role="group" aria-label="View">
+          <button type="button" className={view === 'cards' ? 'on' : ''} aria-pressed={view === 'cards'} onClick={() => pickView('cards')}>Cards</button>
+          <button type="button" className={view === 'list' ? 'on' : ''} aria-pressed={view === 'list'} onClick={() => pickView('list')}>La Carte</button>
+        </div>
       </section>
 
       {error && <p className="error">{error}</p>}
@@ -102,11 +123,24 @@ export default function Explore() {
         </div>
       )}
       {coins && coins.length > 0 && shown.length === 0 && <p className="muted empty">No coins match "{q}".</p>}
-      <div className="grid">
-        {shown.map((c) => (
-          <CoinCard key={c.mint} coin={c} latest={latest.get(c.mint)} market={markets[c.mint]} />
-        ))}
-      </div>
+      {view === 'cards' ? (
+        <div className="grid">
+          {shown.map((c) => (
+            <CoinCard key={c.mint} coin={c} latest={latest.get(c.mint)} market={markets[c.mint]} />
+          ))}
+        </div>
+      ) : (
+        shown.length > 0 && (
+          <div className="ledger" role="list">
+            <div className="lr lr-h mono" aria-hidden="true">
+              <span>#</span><span>Coin</span><span>Champion</span><span className="r">Market cap</span><span className="r">24h</span><span className="r">Age</span>
+            </div>
+            {shown.map((c, i) => (
+              <CoinRow key={c.mint} n={i + 1} coin={c} market={markets[c.mint]} />
+            ))}
+          </div>
+        )
+      )}
       </div>
     </div>
   );

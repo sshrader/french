@@ -68,6 +68,7 @@ export default function App() {
     }
   }
 
+  const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   const section = route.name === 'coin' ? 'explore' : route.name === 'admin' ? '' : route.name;
   const link = (name: 'explore' | 'launch' | 'wire', label: string) => (
     <a className={section === name ? 'on' : ''} href={href[name]} aria-current={section === name ? 'page' : undefined}>
@@ -84,12 +85,18 @@ export default function App() {
           <>You are on Solana <b>{CLUSTER}</b>. Coins made here are test coins with no value.</>
         )}
       </div>
-      <header className="top" ref={topRef}>
-        <div className="wrap top-in">
+      <div className="masthead">
+        <div className="wrap mast-in">
+          <span className="mast-date mono">{today}</span>
           <a className="brand" href={href.explore} aria-label="BaguettePad home">
             <Hat />
-            BaguettePad
+            <span>BaguettePad</span>
           </a>
+          <span className="mast-motto mono">Liberté · Égalité · Baguette</span>
+        </div>
+      </div>
+      <header className="top" ref={topRef}>
+        <div className="wrap top-in">
           <nav className="nav" aria-label="Main">
             {link('explore', 'Explore')}
             {link('launch', 'Launch')}
