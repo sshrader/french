@@ -260,7 +260,11 @@ app.post('/api/coins', async (req, res) => {
       ...(pool ? { curve: true, pool } : {}),
       ...(devBuy ? { devBuy } : {}),
     };
-    await store.update('coins.json', [], (all) => [coin, ...all]);
+    // The very first coin ever launched always gets Pierre, the hero of the last barricade.
+    await store.update('coins.json', [], (all) => {
+      if (all.length === 0) coin.cat = PETS.find((p) => p.id === 'pierre') ?? coin.cat;
+      return [coin, ...all];
+    });
     // The pet writes its first diary entry right away. The reply does not wait for it.
     makePost(coin).catch((e) => console.error('first post failed:', e.message));
     res.status(201).json(coin);

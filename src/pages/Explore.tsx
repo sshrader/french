@@ -61,6 +61,9 @@ export default function Explore() {
     return m;
   }, [posts]);
 
+  // The front-page story is the very first coin ever launched.
+  const first = useMemo(() => (coins && coins.length ? coins.reduce((a, b) => (b.createdAt < a.createdAt ? b : a)) : null), [coins]);
+
   const shown = useMemo(() => {
     const term = q.trim().toLowerCase();
     if (!coins) return [];
@@ -107,9 +110,12 @@ export default function Explore() {
       {coins && coins.length > 0 && shown.length === 0 && <p className="muted empty">No coins match "{q}".</p>}
       {view === 'cards' ? (
         <div className="paper">
-          {shown.map((c, i) => (
-            <CoinArticle key={c.mint} lead={i === 0 && !q.trim()} coin={c} latest={latest.get(c.mint)} market={markets[c.mint]} />
-          ))}
+          {!q.trim() && first && <CoinArticle lead coin={first} latest={latest.get(first.mint)} market={markets[first.mint]} />}
+          {shown
+            .filter((c) => q.trim() || c.mint !== first?.mint)
+            .map((c) => (
+              <CoinArticle key={c.mint} coin={c} latest={latest.get(c.mint)} market={markets[c.mint]} />
+            ))}
         </div>
       ) : (
         shown.length > 0 && (
