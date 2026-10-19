@@ -3,7 +3,7 @@ import { sendChat, type ChatTurn, type Coin } from '../lib/api';
 import { voiceLabel } from '../lib/pets';
 import PetAvatar from './PetAvatar';
 
-const SUGGESTIONS = ['Who are you?', 'What's the front line like?', 'Is this safe?', 'Will it moon?'];
+const SUGGESTIONS = ['Who are you?', "What's the front line like?", 'Is this safe?', 'Will it moon?'];
 
 // Text a coin's pet.
 export default function PetChat({ coin }: { coin: Coin }) {
