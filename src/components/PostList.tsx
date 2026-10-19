@@ -19,7 +19,7 @@ export default function PostList({ posts, mode }: { posts: Post[]; mode: 'wire' 
                   <a className="clink mono" href={href.coin(p.mint)}>${p.symbol}</a>
                 </>
               ) : (
-                <span className="mono muted">Chapter {p.chapter}</span>
+                <span className="mono muted">Dispatch {p.chapter}</span>
               )}
               <span className="tag">AI{p.source === 'template' ? ' · canned' : ''}</span>
               <span className="muted small">{ago(p.ts)}</span>

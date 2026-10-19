@@ -7,7 +7,7 @@ const STEPS = [
   ['Pin it', 'Your image and details are stored on IPFS.'],
   ['Sign it', 'You approve one transaction in your wallet.'],
   ['Verify it', 'The server checks the chain, then pairs your character.'],
-  ['Hear it', 'Your character writes its first diary entry within seconds.'],
+  ['Hear it', 'Your character writes its first front-line dispatch within seconds.'],
 ];
 
 export default function Launch({ balance, onCreated }: { balance: number | null; onCreated: () => void }) {

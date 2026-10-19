@@ -13,7 +13,7 @@ function toPet(c: Coin): WorldPet {
 }
 
 // A shared top-down Paris street. Every coin's character holds the barricades and bonks the cartoon mob; the coin's own character is marked with an arrow.
-// Tap a character for a hop and its latest diary line. Tap a name tag to open that coin.
+// Tap a character for a hop and its latest front-line dispatch. Tap a name tag to open that coin.
 export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const box = useRef<HTMLDivElement>(null);
@@ -210,7 +210,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
         )}
       </div>
       <p className="muted small park-foot">
-        Cartoon mob bonked so far: {routed}. Tap a character for a hop and its latest diary line. Name tags show each character's coin and open its page.{pet ? ` The arrow marks ${pet.name}.` : ''}
+        Cartoon mob bonked so far: {routed}. Tap a character for a hop and its latest front-line dispatch. Name tags show each character's coin and open its page.{pet ? ` The arrow marks ${pet.name}.` : ''}
         {reduce ? ' Motion is paused because your device asks for less movement. Press Play to start it.' : ''}
       </p>
     </section>
