@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { listCoins, listPosts, type Coin, type Post } from '../lib/api';
-import { H, W, createWorld, type WorldPet } from '../lib/petWorld';
+import { H, SCALE, W, createWorld, type WorldPet } from '../lib/petWorld';
 import { speciesOf } from '../lib/pets';
 import { href } from '../router';
 import { petLook } from './PetAvatar';
@@ -157,8 +157,8 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
       <div className="park-stage">
         <canvas
           ref={canvas}
-          width={W}
-          height={H}
+          width={W * SCALE}
+          height={H * SCALE}
           className="park-canvas"
           role="img"
           aria-label={`A pixel Paris street where ${shown.length} AI characters hold the barricades and bonk a cartoon mob with baguettes.${pet ? ` ${pet.name}, this coin's pet, is marked with an arrow.` : ''}`}

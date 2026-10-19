@@ -21,6 +21,9 @@ export const COLS = 30;
 export const ROWS = 17;
 export const W = COLS * TILE; // 480
 export const H = ROWS * TILE; // 272
+// The canvas is drawn at this multiple of the logical size, so big character pictures stay sharp.
+export const SCALE = 2;
+const HERO = 28; // logical size of a character picture (a tile is 16)
 
 type Dir = 'up' | 'right' | 'down' | 'left';
 const DIRS: Dir[] = ['up', 'right', 'down', 'left'];
@@ -190,19 +193,34 @@ function heroImage(id: string): HTMLImageElement | null {
   }
   return img.complete && img.naturalWidth > 0 ? img : null;
 }
-// A character picture as three walking frames (the same picture, bobbing a little). Facing left mirrors it.
+// A character picture as three walking frames (the same picture, bobbing a little) with a dark outline so it
+// stands out from the road. Drawn at SCALE times its logical size. Facing left mirrors it.
 function heroFrames(img: HTMLImageElement, flip: boolean): [HTMLCanvasElement, HTMLCanvasElement, HTMLCanvasElement] {
+  const N = HERO * SCALE;
   const make = (dy: number) => {
-    const c = mk(20, 20);
+    const c = mk(N, N);
     const g = c.getContext('2d')!;
+    const inner = N - 4; // room for the outline
+    // silhouette in dark, then the picture on top
+    const sil = mk(N, N);
+    const sg = sil.getContext('2d')!;
+    sg.imageSmoothingEnabled = true;
+    sg.imageSmoothingQuality = 'high';
+    sg.drawImage(img, 2, 2 + dy * SCALE, inner, inner);
+    sg.globalCompositeOperation = 'source-in';
+    sg.fillStyle = OUT;
+    sg.fillRect(0, 0, N, N);
+    for (const [ox, oy] of [[-2, 0], [2, 0], [0, -2], [0, 2], [-1, -1], [1, -1], [-1, 1], [1, 1]]) g.drawImage(sil, ox, oy);
     g.imageSmoothingEnabled = true;
     g.imageSmoothingQuality = 'high';
-    if (flip) {
-      g.translate(20, 0);
-      g.scale(-1, 1);
-    }
-    g.drawImage(img, 0, 0 + dy, 20, 20);
-    return c;
+    g.drawImage(img, 2, 2 + dy * SCALE, inner, inner);
+    if (!flip) return c;
+    const f = mk(N, N);
+    const fg = f.getContext('2d')!;
+    fg.translate(N, 0);
+    fg.scale(-1, 1);
+    fg.drawImage(c, 0, 0);
+    return f;
   };
   return [make(0), make(-1), make(0)];
 }
@@ -755,43 +773,49 @@ export function createWorld(opts: { hour?: number } = {}): World {
     const sp = mobSprite(m.variant, m.kind, frame, m.face);
     const x = Math.round(m.x);
     const y = Math.round(m.y);
+    const M = 24; // drawn 1.5x so the crowd reads clearly
     g.fillStyle = 'rgba(0,0,0,0.28)';
-    g.fillRect(x + 3, y + 13, 10, 3);
+    g.fillRect(x + 1, y + 13, 14, 3);
     if (m.state === 'down') {
       g.save();
-      g.translate(x + 8, y + 10);
+      g.translate(x + 8, y + 8);
       g.rotate(m.face * (Math.PI / 2));
-      g.drawImage(sp, -8, -8);
+      g.drawImage(sp, -M / 2, -M / 2, M, M);
       g.restore();
       g.fillStyle = '#FFD84D';
       for (let i = 0; i < 3; i++) {
         const a = clock * 6 + i * 2.1;
-        g.fillRect(Math.round(x + 8 + Math.cos(a) * 6), Math.round(y - 1 + Math.sin(a) * 2), 2, 2);
+        g.fillRect(Math.round(x + 8 + Math.cos(a) * 7), Math.round(y - 4 + Math.sin(a) * 2), 2, 2);
       }
       return;
     }
     const bob = Math.floor(m.phase * 8) % 2 === 1 ? -1 : 0;
-    g.drawImage(sp, x, y + bob);
+    g.drawImage(sp, x + 8 - M / 2, y + 15 - M + bob, M, M);
   }
 
   function drawPet(g: CanvasRenderingContext2D, s: PetState) {
     const sp = sprite(s);
     const bob = s.state === 'move' && Math.floor(s.mt * 4) % 2 === 1 ? -1 : 0;
-    const px = Math.round(s.x) - 1;
-    const py = Math.round(s.y) - 1 + bob - Math.round(s.hopY);
+    const lw = sp.width >= 40 ? sp.width / SCALE : sp.width;
+    const lh = sp.height >= 40 ? sp.height / SCALE : sp.height;
+    const px = Math.round(s.x) + 8 - Math.round(lw / 2);
+    const py = Math.round(s.y) + 15 - lh + bob - Math.round(s.hopY);
     g.fillStyle = 'rgba(255,255,255,0.22)';
     g.beginPath();
     g.ellipse(Math.round(s.x) + 8, Math.round(s.y) + 13, 12, 6, 0, 0, Math.PI * 2);
     g.fill();
     g.fillStyle = 'rgba(0,0,0,0.28)';
     g.fillRect(Math.round(s.x) + 3, Math.round(s.y) + 13, 10, 3);
-    g.drawImage(sp, px, py);
+    g.imageSmoothingEnabled = true;
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(sp, px, py, lw, lh);
+    g.imageSmoothingEnabled = false;
     if (s.state === 'sleep') {
       g.fillStyle = '#FFFFFF';
       const t = (clock * 0.8 + s.phase) % 1.6;
       for (let k = 0; k < 2; k++) {
         const tt = (t + k * 0.8) % 1.6;
-        const zx = px + 14 + tt * 3;
+        const zx = px + lw - 6 + tt * 3;
         const zy = py + 2 - tt * 7;
         g.globalAlpha = Math.max(0, 1 - tt / 1.6);
         g.fillRect(Math.round(zx), Math.round(zy), 3, 1);
@@ -803,7 +827,7 @@ export function createWorld(opts: { hour?: number } = {}): World {
     }
     if (s.hopY > 5) {
       g.fillStyle = '#FF6B8B';
-      const hx = px + 12;
+      const hx = px + lw - 8;
       const hy = py - 6;
       g.fillRect(hx, hy, 2, 2);
       g.fillRect(hx + 3, hy, 2, 2);
@@ -814,19 +838,21 @@ export function createWorld(opts: { hour?: number } = {}): World {
       // a bobbing arrow shows which character belongs to this coin
       const ay = py - 7 + Math.round(Math.sin(clock * 5) * 1.5);
       g.fillStyle = OUT;
-      g.fillRect(px + 4, ay - 1, 10, 2);
-      g.fillRect(px + 5, ay + 1, 8, 2);
-      g.fillRect(px + 6, ay + 3, 6, 2);
-      g.fillRect(px + 7, ay + 5, 4, 2);
+      const ax = px + Math.round(lw / 2) - 9;
+      g.fillRect(ax + 4, ay - 1, 10, 2);
+      g.fillRect(ax + 5, ay + 1, 8, 2);
+      g.fillRect(ax + 6, ay + 3, 6, 2);
+      g.fillRect(ax + 7, ay + 5, 4, 2);
       g.fillStyle = '#FF7B5C';
-      g.fillRect(px + 5, ay, 8, 1);
-      g.fillRect(px + 6, ay + 1, 6, 1);
-      g.fillRect(px + 7, ay + 2, 4, 1);
-      g.fillRect(px + 8, ay + 3, 2, 1);
+      g.fillRect(ax + 5, ay, 8, 1);
+      g.fillRect(ax + 6, ay + 1, 6, 1);
+      g.fillRect(ax + 7, ay + 2, 4, 1);
+      g.fillRect(ax + 8, ay + 3, 2, 1);
     }
   }
 
   function draw(g: CanvasRenderingContext2D) {
+    g.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     g.imageSmoothingEnabled = false;
     g.drawImage(terrain.img, 0, 0);
 
@@ -920,7 +946,7 @@ export function createWorld(opts: { hour?: number } = {}): World {
 
   function hitTest(x: number, y: number) {
     const list = [...pets.values()].sort((a, b) => b.y - a.y);
-    for (const s of list) if (x >= s.x - 2 && x <= s.x + 18 && y >= s.y - 3 && y <= s.y + 18) return s.pet.mint;
+    for (const s of list) if (x >= s.x - 6 && x <= s.x + 22 && y >= s.y - 14 && y <= s.y + 18) return s.pet.mint;
     return null;
   }
 
