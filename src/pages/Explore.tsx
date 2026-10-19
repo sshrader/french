@@ -81,7 +81,7 @@ export default function Explore() {
         <h2>Launched coins{coins ? <span className="muted"> · {coins.length}</span> : null}</h2>
         <label className="search">
           <span className="sr">Search coins</span>
-          <input className="in" type="text" placeholder="Search name, ticker or pet" value={q} onChange={(e) => setQ(e.target.value)} autoComplete="off" />
+          <input className="in" type="text" placeholder="Search name, ticker or character" value={q} onChange={(e) => setQ(e.target.value)} autoComplete="off" />
         </label>
         <label className="search">
           <span className="sr">Sort coins</span>
@@ -96,7 +96,7 @@ export default function Explore() {
       {coins && coins.length === 0 && (
         <div className="card emptycard">
           <h3>No coins yet</h3>
-          <p className="muted">Launch the first one and meet its cat.</p>
+          <p className="muted">Launch the first one and meet its hero.</p>
           <a className="btn primary" href={href.launch}>Launch a coin</a>
         </div>
       )}
