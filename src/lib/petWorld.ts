@@ -296,9 +296,9 @@ function buildTerrain(): Terrain {
   const pickOf = <T,>(a: T[]) => a[Math.floor(rand() * a.length)];
 
   // cobblestones on the road, flagstones on the pavements
-  rect(0, 0, W, H, '#4A4C52');
-  const roadShades = ['#6B6E75', '#72757C', '#686B72', '#777A81'];
-  const sideShades = ['#B9B2A3', '#C2BBAC', '#B1AA9B'];
+  rect(0, 0, W, H, '#6A6C72');
+  const roadShades = ['#8A8D94', '#92959C', '#85888F', '#999CA3'];
+  const sideShades = ['#CFC8B8', '#D8D1C2', '#C7C0B0'];
   for (let y = 0; y < H; y += 8) {
     const ty = Math.floor(y / TILE);
     const road = ty >= ROAD_TOP && ty <= ROAD_BOT;
@@ -779,6 +779,10 @@ export function createWorld(opts: { hour?: number } = {}): World {
     const bob = s.state === 'move' && Math.floor(s.mt * 4) % 2 === 1 ? -1 : 0;
     const px = Math.round(s.x) - 1;
     const py = Math.round(s.y) - 1 + bob - Math.round(s.hopY);
+    g.fillStyle = 'rgba(255,255,255,0.22)';
+    g.beginPath();
+    g.ellipse(Math.round(s.x) + 8, Math.round(s.y) + 13, 12, 6, 0, 0, Math.PI * 2);
+    g.fill();
     g.fillStyle = 'rgba(0,0,0,0.28)';
     g.fillRect(Math.round(s.x) + 3, Math.round(s.y) + 13, 10, 3);
     g.drawImage(sp, px, py);
@@ -896,7 +900,7 @@ export function createWorld(opts: { hour?: number } = {}): World {
 
     // evening and night
     if (night || dusk) {
-      g.fillStyle = night ? 'rgba(10,18,60,0.5)' : 'rgba(255,140,70,0.16)';
+      g.fillStyle = night ? 'rgba(20,30,80,0.2)' : 'rgba(255,140,70,0.08)';
       g.fillRect(0, 0, W, H);
       for (const [tx, ty] of terrain.lamps) {
         const cx = tx * TILE + 8;
