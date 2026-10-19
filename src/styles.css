@@ -301,3 +301,8 @@ h1 em, .hero h1 em { font-style: normal; color: var(--rouge); }
 .foot { border-top: 3px double var(--frame); font-style: italic; text-align: center; }
 .foot::before { content: '⚜'; display: block; font-size: 22px; color: var(--gold); margin-bottom: 6px; font-style: normal; }
 .park-canvas { border: 3px double var(--frame); }
+
+/* Scroll snapping: gentle ("proximity"), so the page settles on sections and coin rows but never fights a slow scroll. */
+html { scroll-snap-type: y proximity; scroll-padding-top: 72px; }
+.hero, .park, .filters, .grid > * { scroll-snap-align: start; }
+@media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; } }
