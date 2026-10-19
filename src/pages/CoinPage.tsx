@@ -104,7 +104,7 @@ export default function CoinPage({ mint }: { mint: string }) {
       <section className="card catcard">
         <PetAvatar id={cat.id} name={cat.name} size={88} />
         <div>
-          <p className="eyebrow mono">This coin's pet</p>
+          <p className="eyebrow mono">This coin's character</p>
           <h2>{cat.name}</h2>
           <p className="muted">{cat.breed} · {voiceLabel(cat.voice)} voice</p>
         </div>
@@ -117,7 +117,7 @@ export default function CoinPage({ mint }: { mint: string }) {
         <section className="card logcard" aria-label={`${cat.name}'s log`}>
           <div className="log-h">
             <h3>{cat.name}'s log</h3>
-            <span className="muted small">Written by an AI pet</span>
+            <span className="muted small">Written by an AI character</span>
           </div>
           {posts.length === 0 ? <p className="muted small">{cat.name} is writing the first entry…</p> : <PostList posts={posts} mode="log" />}
         </section>

@@ -331,7 +331,7 @@ app.post('/api/coins/:mint/chat', async (req, res) => {
     res.json({ reply: out.text, source: out.source });
   } catch (e) {
     console.error('chat failed', e);
-    bad(res, 'Your pet is napping. Try again.', 500);
+    bad(res, 'Your character is catching their breath. Try again.', 500);
   }
 });
 

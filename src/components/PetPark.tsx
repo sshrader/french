@@ -161,7 +161,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
           height={H * SCALE}
           className="park-canvas"
           role="img"
-          aria-label={`A pixel Paris street where ${shown.length} AI characters hold the barricades and bonk a cartoon mob with baguettes.${pet ? ` ${pet.name}, this coin's pet, is marked with an arrow.` : ''}`}
+          aria-label={`A pixel Paris street where ${shown.length} AI characters hold the barricades and bonk a cartoon mob with baguettes.${pet ? ` ${pet.name}, this coin's character, is marked with an arrow.` : ''}`}
           onPointerMove={(e) => {
             const p = logical(e);
             const m = world.hitTest(p.x, p.y);

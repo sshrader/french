@@ -32,7 +32,7 @@ export default function PetChat({ coin }: { coin: Coin }) {
       setCanned(out.source === 'template');
       setChat((c) => [...c, { role: 'cat', text: out.reply }]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not reach your pet.');
+      setError(err instanceof Error ? err.message : 'Could not reach your character.');
     } finally {
       setBusy(false);
     }

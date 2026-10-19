@@ -11,7 +11,7 @@ Not legal advice. Costs are rough estimates unless a source is named.
 - [ ] Image moderation: scan or review uploads before they are shown. Block illegal content.
 - [ ] Report and hide button, plus a takedown process (copyright complaints).
 - [ ] Reserved names: block well-known brands, people, and "official" lookalikes.
-- [ ] Output filter on cat chat and lore (they publish text under your brand). Keep the AI label. Never give price predictions or advice.
+- [ ] Output filter on character chat and lore (they publish text under your brand). Keep the AI label. Never give price predictions or advice.
 - [ ] Per-wallet limits on launches and chat to stop spam.
 
 ## 3. Money and keys
