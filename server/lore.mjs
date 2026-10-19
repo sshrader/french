@@ -5,7 +5,7 @@ import { PETS } from './pets.mjs';
 import { writePost } from './petbrain.mjs';
 
 const MAX_PER_COIN = 50;
-const baseGapMs = () => Math.max(1, Number(process.env.CAT_POST_MINUTES || 30)) * 60_000;
+const baseGapMs = () => Math.max(0.5, Number(process.env.CAT_POST_MINUTES || 5)) * 60_000;
 
 // Each coin waits between 0.5x and 1.5x the base gap, picked from its mint so cats do not post in sync.
 const gapFor = (mint, count) => baseGapMs() * (0.5 + crypto.createHash('sha256').update(`${mint}:${count}`).digest()[0] / 255);
