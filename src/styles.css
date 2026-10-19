@@ -1,32 +1,32 @@
-/* Dark teal ink with one coral accent. Light theme follows the system setting. */
+/* Midnight blue with a rouge accent (bleu, blanc, rouge). Light theme follows the system setting. */
 :root {
   --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
   --font-body: 'Figtree', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-  --bg: #0c1315;
-  --surface: #131c1f;
-  --surface-2: #1b282c;
-  --line: #27373c;
-  --fg: #e8eeeb;
-  --muted: #8fa3a5;
-  --accent: #ff7b5c;
-  --accent-ink: #1f0c06;
-  --accent-text: #ff9078;
+  --bg: #0a1224;
+  --surface: #101b34;
+  --surface-2: #182646;
+  --line: #26385f;
+  --fg: #eef1f8;
+  --muted: #93a3c4;
+  --accent: #ef4135;
+  --accent-ink: #ffffff;
+  --accent-text: #ff7a70;
   --ok: #5eddb4;
   --bad: #ff6b7a;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f2f5f3;
+    --bg: #f3f5fb;
     --surface: #ffffff;
-    --surface-2: #e8efec;
-    --line: #d3deda;
-    --fg: #0f1b1e;
-    --muted: #566b6e;
-    --accent: #e8532f;
+    --surface-2: #e7ecf8;
+    --line: #d2daee;
+    --fg: #0e1730;
+    --muted: #55648a;
+    --accent: #d62c20;
     --accent-ink: #ffffff;
-    --accent-text: #bf3a19;
+    --accent-text: #b8231a;
     --ok: #0b8a65;
     --bad: #cc3547;
     color-scheme: light;
@@ -229,7 +229,7 @@ textarea { resize: vertical; }
 .park-stage { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); line-height: 0; }
 .park-canvas { width: 100%; height: auto; display: block; image-rendering: pixelated; background: #5dae57; }
 .park-tags { position: absolute; inset: 0; pointer-events: none; }
-.park-tag { position: absolute; left: 0; top: 0; transform: translate(-50%, 0); pointer-events: auto; white-space: nowrap; line-height: 1; font: 600 10px/1 var(--font-body); letter-spacing: 0.01em; padding: 2px 5px; border-radius: 6px; background: rgba(12, 19, 21, 0.78); color: #fff; text-decoration: none; }
+.park-tag { position: absolute; left: 0; top: 0; transform: translate(-50%, 0); pointer-events: auto; white-space: nowrap; line-height: 1; font: 600 10px/1 var(--font-body); letter-spacing: 0.01em; padding: 2px 5px; border-radius: 6px; background: rgba(10, 18, 36, 0.78); color: #fff; text-decoration: none; }
 .park-tag:hover, .park-tag:focus-visible { background: #000; outline: 2px solid var(--accent); z-index: 3; }
 .park-tag.me { background: var(--accent); color: var(--accent-ink); z-index: 2; }
 @media (min-width: 760px) { .park-tag { font-size: 11.5px; padding: 2px 6px; } }

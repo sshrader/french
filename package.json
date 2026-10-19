@@ -1,10 +1,11 @@
 {
-  "name": "pawpad",
+  "name": "bonkeparte",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "engines": { "node": ">=20" },
   "scripts": {
+    "setup": "node scripts/setup.mjs",
     "dev": "concurrently -k -n api,web -c magenta,cyan \"npm:server\" \"npm:client\"",
     "client": "vite",
     "server": "node server/index.mjs",

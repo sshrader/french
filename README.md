@@ -1,8 +1,18 @@
-# Pawpad (devnet starter)
+# Bonkeparte
 
-Wallet connection, real token creation on Solana devnet, and a small API that stores coins and pairs each one with an AI cat that answers texts and writes its own lore. The bonding curve comes later.
+A French Revolution flavoured memecoin launchpad on Solana. *Vive la memecoin.* Launch a token in one click, trade it on a Meteora bonding curve, and let each coin's AI pet write its lore. Built on the Bonkeparte codebase.
 
-> **Status:** the token creation, wallet flow and Pinata upload have been run on devnet. The cat AI logic is covered by `npm run pet-test` (a fake model server), but it has not yet been run against a real provider. The cat screens in the browser are new.
+## Quick start (local)
+
+Requires Node 20 or newer.
+
+```bash
+npm install
+npm run setup     # creates .env from .env.example (never overwrites an existing one)
+npm run dev       # API on :8787, site on http://localhost:5173
+```
+
+The default `.env` runs on **devnet** with local storage, so nothing costs real money. Open http://localhost:5173, connect Phantom set to Devnet, press **Get test SOL**, and launch a coin. Edit `.env` any time to add a Pinata key (images show up in wallets), an LLM key (pets talk for real) or the bonding-curve config. See the comments in `.env.example`.
 
 ## 1. Prepare Phantom (devnet)
 
@@ -37,7 +47,7 @@ Run `npm run dry-run -- --send` first if you can. It tests the on-chain part wit
 Every coin's cat can talk and write.
 
 - **Chat.** Each coin page has a chat with its cat. `POST /api/coins/:mint/chat` (single coin: `GET /api/coins/:mint`) sends the message and the last few turns to the model and returns the reply.
-- **Lore.** When a coin is registered its cat writes a first diary entry, then a new one every `CAT_POST_MINUTES` (varies per coin). Entries are stored in `server/data/posts.json`, shown on the coin card and in the Paw Wire feed, and each continues from the cat's last three entries.
+- **Lore.** When a coin is registered its cat writes a first diary entry, then a new one every `CAT_POST_MINUTES` (varies per coin). Entries are stored in `server/data/posts.json`, shown on the coin card and in the La Gazette feed, and each continues from the cat's last three entries.
 - **Voices.** Five voices (mystic, hype, deadpan, lyrical, grumpy) are defined in `server/pets.mjs`. Edit the style lines to change how a cat sounds.
 - **AI brain.** `server/llm.mjs` calls any OpenAI-compatible chat API. Put `LLM_API_KEY` in `.env` (Groq has a free tier, see `.env.example`) and restart. With no key the cats answer from canned lines and say so.
 - **Safety rules** are in `server/petbrain.mjs`. Pets say they are AI, never predict prices or tell anyone to buy or sell, and treat coin descriptions and chat messages as untrusted text. Replies are stripped of links and markdown. Posts are labelled AI in the UI.
@@ -63,7 +73,7 @@ server/store.mjs        JSON-file storage (swap for a real database later)
 src/lib/createCoin.ts   the transaction. Start reading here.
 src/lib/api.ts          client calls to the API
 src/router.ts           tiny hash router (#/, #/launch, #/wire, #/coin/<mint>)
-src/pages/              Explore, Launch, Paw Wire, coin page
+src/pages/              Explore, Launch, La Gazette, coin page
 src/components/         create form, coin card, cat chat, post list, cat avatars
 src/App.tsx             header, nav, wallet button, balance, test-SOL button
 scripts/dry-run.ts      tests the transaction without a browser
@@ -100,7 +110,7 @@ Each coin page shows a market cap chart. `MARKET_MODE=demo` (the default) draws 
 
 ## Trading on a bonding curve (Meteora)
 
-Pawpad uses Meteora's Dynamic Bonding Curve program, so there is no curve code of our own to maintain or audit. The flow:
+Bonkeparte uses Meteora's Dynamic Bonding Curve program, so there is no curve code of our own to maintain or audit. The flow:
 
 1. **Once:** `npm run dbc-config -- --check` shows the curve settings. `npm run dbc-config` creates the config on chain with the partner wallet (`.devnet-keypair.json`) and prints `DBC_CONFIG` and `VITE_DBC_CONFIG` for `.env`.
 2. **Each launch:** one transaction creates the token and its curve pool (`src/lib/dbc.ts`). The server checks that the pool exists, came from your config, and was made by the paying wallet (`server/curve.mjs`).
@@ -123,7 +133,7 @@ The free public devnet RPC rate-limits heavily. The app caches and looks up pool
 
 ## Pets: cats and dogs
 
-Every coin is paired with one of 16 AI pets, 8 cats and 8 dogs, chosen from the coin's address. Add or edit pets in `server/pets.mjs` and `src/lib/pets.ts` (keep both in sync) and draw a portrait in `src/components/PetAvatar.tsx`. Dogs get dog-flavored prompts and canned lines; coins made before dogs existed keep their cat. The feed page is the Paw Wire.
+Every coin is paired with one of 16 AI pets, 8 cats and 8 dogs, chosen from the coin's address. Add or edit pets in `server/pets.mjs` and `src/lib/pets.ts` (keep both in sync) and draw a portrait in `src/components/PetAvatar.tsx`. Dogs get dog-flavored prompts and canned lines; coins made before dogs existed keep their cat. The feed page is the La Gazette.
 
 ### The park
 

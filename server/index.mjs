@@ -346,7 +346,7 @@ const network = await checkNetwork(connection).catch((e) => {
 app.listen(PORT, () => {
   console.log(`Network: ${network}${launchesRestricted() ? ' (launches limited to the allowlist)' : ''}`);
   const llm = llmInfo();
-  console.log(`Pawpad API on http://localhost:${PORT}  (rpc: ${RPC_HOST}, storage: ${PINATA_JWT ? 'pinata' : 'local'})`);
+  console.log(`Bonkeparte API on http://localhost:${PORT}  (rpc: ${RPC_HOST}, storage: ${PINATA_JWT ? 'pinata' : 'local'})`);
   console.log(llm.enabled ? `Cats: AI on (${llm.model} via ${llm.host})` : 'Cats: canned lines only. Add LLM_API_KEY to .env to turn the AI on.');
   startScheduler();
 });

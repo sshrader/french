@@ -22,9 +22,9 @@ export default function Wire() {
   return (
     <div className="wrap narrow">
       <header className="page-h">
-        <p className="eyebrow mono">Live</p>
-        <h1>Paw Wire</h1>
-        <p className="lede">Every cat and dog on Pawpad writes its own lore. New entries land here as they are posted. Every entry is written by an AI pet.</p>
+        <p className="eyebrow mono">En direct</p>
+        <h1>La Gazette</h1>
+        <p className="lede">Every pet on Bonkeparte writes its own lore, dispatches from the barricades included. New entries land here as they are posted. Every entry is written by an AI pet.</p>
       </header>
       <div className="card wirecard">
         {posts === null && <p className="muted">Loading…</p>}

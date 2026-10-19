@@ -137,7 +137,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
   const pet = coin?.cat;
 
   return (
-    <section className="card park" aria-label="The Pawpad park" ref={box}>
+    <section className="card park" aria-label="The Bonkeparte park" ref={box}>
       <div className="park-h">
         <div>
           <p className="eyebrow mono">The park</p>

@@ -196,7 +196,7 @@ type Terrain = { img: HTMLCanvasElement; blocked: Uint8Array; lamps: [number, nu
 function buildTerrain(): Terrain {
   const img = mk(W, H);
   const g = img.getContext('2d')!;
-  const rand = rng(hash('pawpad-park'));
+  const rand = rng(hash('bonkeparte-park'));
   const blocked = new Uint8Array(COLS * ROWS);
   const block = (tx: number, ty: number, w = 1, h = 1) => {
     for (let y = ty; y < ty + h; y++) for (let x = tx; x < tx + w; x++) if (x >= 0 && y >= 0 && x < COLS && y < ROWS) blocked[y * COLS + x] = 1;

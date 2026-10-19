@@ -10,14 +10,15 @@ import Wire from './pages/Wire';
 import CoinPage from './pages/CoinPage';
 import Admin from './pages/Admin';
 
-function Paw() {
+function Hat() {
+  // A bicorne hat with a tricolour cockade
   return (
-    <svg className="paw" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <ellipse cx="8" cy="13" rx="2.6" ry="3.4" />
-      <ellipse cx="13" cy="8" rx="2.6" ry="3.6" />
-      <ellipse cx="19" cy="8" rx="2.6" ry="3.6" />
-      <ellipse cx="24" cy="13" rx="2.6" ry="3.4" />
-      <path d="M16 15c-4.3 0-7.6 3.8-7.6 7 0 2.4 1.9 3.7 4.3 3.7 1.3 0 2.2-.6 3.3-.6s2 .6 3.3.6c2.4 0 4.3-1.3 4.3-3.7 0-3.2-3.3-7-7.6-7z" />
+    <svg className="paw" viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M2 21c3-9 8-13 14-13s11 4 14 13c-4-3-9-5-14-5S6 18 2 21z" fill="currentColor" />
+      <path d="M6 23c3-2 6-3 10-3s7 1 10 3c-3 3-6 4-10 4s-7-1-10-4z" fill="currentColor" opacity="0.65" />
+      <circle cx="16" cy="14" r="3.4" fill="#fff" />
+      <circle cx="16" cy="14" r="2" fill="#ef4135" />
+      <circle cx="16" cy="14" r="0.9" fill="#1d4ed8" />
     </svg>
   );
 }
@@ -80,14 +81,14 @@ export default function App() {
       </div>
       <header className="top">
         <div className="wrap top-in">
-          <a className="brand" href={href.explore} aria-label="Pawpad home">
-            <Paw />
-            Pawpad
+          <a className="brand" href={href.explore} aria-label="Bonkeparte home">
+            <Hat />
+            Bonkeparte
           </a>
           <nav className="nav" aria-label="Main">
             {link('explore', 'Explore')}
             {link('launch', 'Launch')}
-            {link('wire', 'Paw Wire')}
+            {link('wire', 'La Gazette')}
           </nav>
           <div className="wallet-area">
             {publicKey && balance !== null && <span className="bal mono">{balance.toFixed(3)} SOL</span>}
@@ -120,7 +121,7 @@ export default function App() {
 
       <footer className="wrap foot muted">
         {IS_MAINNET
-          ? 'Pawpad is unaudited beta software. Pets are AI characters and their posts are not advice. Coins are not endorsed by Pawpad. Only risk what you can lose.'
+          ? 'Bonkeparte is unaudited beta software. Pets are AI characters and their posts are not advice. Coins are not endorsed by Bonkeparte. Only risk what you can lose.'
           : `Prototype running on ${CLUSTER}. Not audited.`}
       </footer>
     </>

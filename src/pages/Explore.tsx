@@ -55,21 +55,21 @@ export default function Explore() {
     <div className="wrap">
       <section className="hero">
         <div>
-          <p className="eyebrow mono">Solana memecoin launchpad · AI pets</p>
-          <h1>Launch a coin. Adopt a pet.</h1>
+          <p className="eyebrow mono">Solana memecoin launchpad · Liberté, égalité, memecoin</p>
+          <h1>Vive la memecoin. Storm the Bastille of boring launches.</h1>
           <p className="lede">
-            Every coin on Pawpad is paired with a random AI cat or dog that writes its lore, chats with its holders, and roams a shared pixel park with
-            every other coin's pet. Meet yours the moment you launch.
+            Launch your coin in one click. Every coin on Bonkeparte is paired with a random AI cat or dog that writes its lore, chats with its holders, and roams a
+            shared pixel park with every other coin's pet. Meet yours the moment you launch.
           </p>
           <div className="badges">
-            <span className="badge">🐾 One-click launch</span>
+            <span className="badge">⚜️ One-click launch</span>
             {CURVE_ON && <span className="badge">📈 Trades on a bonding curve from the first second</span>}
             {CURVE_ON && <span className="badge">🔒 Liquidity locked after graduation</span>}
             <span className="badge">🤖 Pets are AI, always labelled</span>
           </div>
           <div className="cta">
             <a className="btn primary" href={href.launch}>Launch a coin</a>
-            <a className="btn" href={href.wire}>Read the Paw Wire</a>
+            <a className="btn" href={href.wire}>Read La Gazette</a>
           </div>
         </div>
       </section>
