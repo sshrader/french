@@ -198,6 +198,15 @@ export default function CreateCoinForm({ balance, onCreated }: { balance: number
         </div>
       )}
 
+      {!CURVE_ON && (
+        <div className="field devbuy">
+          <label className="check">
+            <input type="checkbox" disabled /> Block-zero dev buy <span className="muted">(needs the bonding curve)</span>
+          </label>
+          <p className="muted small">The dev buy happens inside the pool-creation transaction, so it only works once the bonding curve is set up. Run <code>npm run dbc-config</code> and put the result in <code>.env</code> as DBC_CONFIG and VITE_DBC_CONFIG, then restart.</p>
+        </div>
+      )}
+
       <ul className="checks">
         {CURVE_ON ? (
           <>
