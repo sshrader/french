@@ -1,3 +1,4 @@
+import { href } from '../router';
 import PetAvatar from './PetAvatar';
 
 const CREW = [
@@ -8,13 +9,13 @@ const CREW = [
 ] as const;
 
 // Pierre and the memes who back him up. Pure flavour text.
-export default function Brigade() {
+export default function Brigade({ cta = false }: { cta?: boolean }) {
   return (
     <section className="brigade card" aria-label="Pierre and the meme brigade">
       <div className="brigade-hero">
         <PetAvatar id="pierre" name="Pierre" size={132} />
         <div>
-          <p className="eyebrow mono">Hero of the last barricade</p>
+          <p className="eyebrow mono">BaguettePad · Hero of the last barricade</p>
           <h2>Pierre holds the line</h2>
           <p className="muted">
             One tall, calm man in a black t-shirt stands in the middle of the rue while a vicious mob charges him. He has not raised his voice once. He does not need to. He has the memes.
@@ -32,6 +33,12 @@ export default function Brigade() {
           </li>
         ))}
       </ul>
+      {cta && (
+        <div className="cta">
+          <a className="btn primary" href={href.launch}>Launch a coin</a>
+          <a className="btn" href={href.wire}>Read La Gazette</a>
+        </div>
+      )}
       <p className="muted small">Pierre is an original cartoon character, and so is the mob. Nobody gets hurt, only baguette-bonked.</p>
     </section>
   );

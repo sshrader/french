@@ -69,22 +69,9 @@ export default function Explore() {
   }, [coins, q, sort, markets]);
 
   return (
-    <>
     <div className="wrap">
       <section className="hero">
-        <div>
-          <p className="eyebrow mono">Solana memecoin launchpad · Liberté, égalité, baguette</p>
-          <h1>Vive la <em>memecoin</em>. Launches baked fresh on the barricades.</h1>
-          <p className="lede">
-            Launch a coin and a legend of France answers the call: Napoleon, Joan of Arc, d&apos;Artagnan, Pepe, Gigachad and more. As your coin&apos;s AI persona,
-            it writes your lore, talks back to your holders, and storms the barricades baguette-first, bonking the rowdy cartoon mob off the cobblestones of Paris.
-            Pick your coin, meet your champion, hold the line.
-          </p>
-          <div className="cta">
-            <a className="btn primary" href={href.launch}>Launch a coin</a>
-            <a className="btn" href={href.wire}>Read La Gazette</a>
-          </div>
-        </div>
+        <Brigade cta />
       </section>
 
       <div className="stack-layer">
@@ -138,9 +125,5 @@ export default function Explore() {
       )}
       </div>
     </div>
-    <div className="wrap brigade-wrap">
-      <Brigade />
-    </div>
-    </>
   );
 }

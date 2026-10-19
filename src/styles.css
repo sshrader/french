@@ -419,3 +419,7 @@ a.lr:hover { background: var(--surface-2); }
 
 /* Outside the sticky hero's container so the hero never overlaps it. */
 .brigade-wrap { position: relative; z-index: 2; padding-bottom: 8px; }
+
+.hero .brigade { text-align: left; margin-top: 0; }
+.hero .brigade .cta { margin-top: 0; }
+.hero { padding-block: 28px 20px; }
