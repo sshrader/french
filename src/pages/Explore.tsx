@@ -58,8 +58,8 @@ export default function Explore() {
           <p className="eyebrow mono">Solana memecoin launchpad · Liberté, égalité, memecoin</p>
           <h1>Vive la <em>memecoin</em>. Storm the Bastille of boring launches.</h1>
           <p className="lede">
-            Launch your coin in one click. Every coin on Bonkeparte is paired with a random French hero or French-themed meme (Napoleon, Joan of Arc, d'Artagnan, Pepe, Gigachad and friends) that writes its lore, chats with its
-            holders, and roams a shared pixel park with every other coin's character. Meet yours the moment you launch.
+            One click. One coin. One legend of France. Every launch draws a random hero or meme (Napoleon, Joan of Arc, d&apos;Artagnan, Pepe, Gigachad
+            and more) who writes your lore, talks back to your holders and fights for your coin on the barricades. Launch it, see who answers the call, and rally the troops.
           </p>
           <div className="badges">
             <span className="badge">⚜️ One-click launch</span>
