@@ -69,6 +69,7 @@ export default function Explore() {
   }, [coins, q, sort, markets]);
 
   return (
+    <>
     <div className="wrap">
       <section className="hero">
         <div>
@@ -136,7 +137,10 @@ export default function Explore() {
         )
       )}
       </div>
+    </div>
+    <div className="wrap brigade-wrap">
       <Brigade />
     </div>
+    </>
   );
 }

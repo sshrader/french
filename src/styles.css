@@ -416,3 +416,6 @@ a.lr:hover { background: var(--surface-2); }
 .crew { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .crew li { display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: var(--surface-2); border: 1px solid var(--line); }
 @media (max-width: 600px) { .brigade-hero { flex-direction: column; text-align: center; } }
+
+/* Outside the sticky hero's container so the hero never overlaps it. */
+.brigade-wrap { position: relative; z-index: 2; padding-bottom: 8px; }
