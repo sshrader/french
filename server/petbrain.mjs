@@ -31,7 +31,9 @@ export function systemPrompt(cat, coin, task) {
   return [
     `You are ${cat.name}, ${cat.breed}. You are an AI parody character and you say so plainly if anyone asks. You are the mascot of a meme coin called "${scrub(coin.name, 40)}" ($${scrub(coin.symbol, 10)}) on the Solana network.`,
     `Voice: ${voice.style}`,
-    FLAVOR[kind],
+    cat.id === 'pierre'
+      ? 'You are Pierre, an original fictional hero of this cartoon street battle, not a historical figure. Credit your meme allies (Pepe, Gigachad, Wojak, Trollface) in funny, specific ways for how they help you beat back the mob.'
+      : FLAVOR[kind],
     'Setting: you are on the front line of a cartoon, fictional street battle in Paris. A rowdy cartoon mob of invented troublemakers keeps charging the barricades and you and the other coin characters bonk them away with baguettes, slapstick style, like a Saturday morning cartoon. Mention the mob, the barricades, your baguette, your allies and rivals, and the cobblestones often, and keep your voice and personality.',
     'Rules:',
     '- Stay in character. Plain text only: no emoji, hashtags, links or markdown.',
@@ -53,6 +55,7 @@ const REPLIES = {
   joan: ['I heard your words, and my heart rose like a banner.', 'Forward, friend. The light is on our side today.', 'I do not know the way yet, but I will charge anyway.'],
   dartagnan: ['Ha! Spoken like a true musketeer, mon ami.', 'One for all, and all for the next round of coffee.', 'Excellent. Now draw your wit and let us duel on.'],
   vercingetorix: ['Hah! The Gauls never kneel. Pass the feast.', 'You speak with a strong shield arm. I like that.', 'We hold the line. And the cheese.'],
+  pierre: ['Appreciate it. The mob is just a loud opening act. We will be done by the encore.', 'Noted. Pepe is making tea, Gigachad is lifting a baguette, and I am standing here. It is going well.', 'Good point. Wojak is crying at the mob again, and honestly it works.'],
   trollface: ['Problem?', 'Oh, I saw that. I will be thinking about it all day.', 'Interesting. Anyway, I moved your chair.'],
   pepe: ['Good vibes, friend. Have some tea.', 'That is nice to hear. I am just sitting here, being a frog.', 'Everything is a little bit okay. I checked.'],
   gigachad: ['Good. Stay strong. Drink water.', 'You are doing fine. I do not even need to flex.', 'Noted. I will nod calmly.'],
@@ -64,6 +67,7 @@ const POSTS = {
   joan: ['BARRICADE DISPATCH: A bell rang, the mob surged, and {coin} stood fast. I raised my baguette and the whole street cheered. {tick} walks with light.', 'LIVE FROM THE FRONT: Three charges beaten back before noon. The banner of {coin} still flies over the barricade.'],
   dartagnan: ['BARRICADE DISPATCH: Duelled five rioters at once outside {coin}, baguette in hand. One for all, and all of them bonked. {tick}!', 'LIVE FROM THE COBBLESTONES: The mob thought the barricade was empty. D\'Artagnan begs to differ, with a feather in his hat.'],
   vercingetorix: ['BARRICADE DISPATCH: The Gauls of {coin} met the mob shield to shield. They broke like stale bread. {tick} holds the hill.', 'LIVE FROM THE FRONT: Their boss came roaring down the street. He left without his hat and without his dignity.'],
+  pierre: ['BARRICADE DISPATCH: The mob hit {coin} at dawn. Gigachad lifted, Pepe poured tea, Wojak cried at them until they apologised. I stood there. {tick} holds.', 'LIVE FROM THE COBBLESTONES: Trollface swapped every street sign, so the mob charged into a bakery. They left with bread and regret. The barricade stands.'],
   trollface: ['BARRICADE DISPATCH: Swapped the mob\'s street signs at {coin}. They charged the wrong way for an hour. {tick}. Problem?', 'LIVE FROM THE COBBLESTONES: Greased the cobbles in front of the barricade. Seven rioters slid straight back to the river. Problem?'],
   pepe: ['BARRICADE DISPATCH: Mob came at {coin}. I bonked one. It felt okay. {tick} is fine, the barricade is fine, I am a frog.', 'LIVE FROM THE FRONT: Sat on the barricade with tea while the baguettes did their work. Feels good, man.'],
   gigachad: ['BARRICADE DISPATCH: The mob rushed {coin}. One calm baguette swing cleared the street. {tick} stays calm. Be calm.', 'LIVE FROM THE COBBLESTONES: Held the line without breaking a sweat. Rioters 0, baguette 12. Drink water.'],

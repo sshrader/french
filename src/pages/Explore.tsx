@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getAllMarkets, listCoins, listPosts, type Coin, type Market, type Post } from '../lib/api';
 import { href } from '../router';
+import Brigade from '../components/Brigade';
 import CoinArticle from '../components/CoinArticle';
 import CoinRow from '../components/CoinRow';
 import PetPark from '../components/PetPark';
@@ -135,6 +136,7 @@ export default function Explore() {
         )
       )}
       </div>
+      <Brigade />
     </div>
   );
 }
