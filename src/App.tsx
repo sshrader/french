@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
@@ -31,6 +31,19 @@ export default function App() {
       setBalance(null);
     }
   }, [connection, publicKey]);
+
+  // Sticky bars below the header need to know how tall it is (it wraps on small screens).
+  const topRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = topRef.current;
+    if (!el) return;
+    const set = () => document.documentElement.style.setProperty('--top-h', `${el.offsetHeight}px`);
+    set();
+    if (typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(set);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     refreshBalance();
@@ -71,7 +84,7 @@ export default function App() {
           <>You are on Solana <b>{CLUSTER}</b>. Coins made here are test coins with no value.</>
         )}
       </div>
-      <header className="top">
+      <header className="top" ref={topRef}>
         <div className="wrap top-in">
           <a className="brand" href={href.explore} aria-label="Bonkeparte home">
             <Hat />
