@@ -31,7 +31,7 @@ export function applyGuards(app) {
   if (BLOCKED.length) {
     app.use('/api', (req, res, next) => {
       if (req.path === '/health') return next();
-      if (BLOCKED.includes(countryOf(req))) return res.status(451).json({ error: 'Bonkeparte is not available in your region.' });
+      if (BLOCKED.includes(countryOf(req))) return res.status(451).json({ error: 'BaguettePad is not available in your region.' });
       next();
     });
   }

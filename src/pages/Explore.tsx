@@ -55,11 +55,12 @@ export default function Explore() {
     <div className="wrap">
       <section className="hero">
         <div>
-          <p className="eyebrow mono">Solana memecoin launchpad · Liberté, égalité, memecoin</p>
-          <h1>Vive la <em>memecoin</em>. Storm the Bastille of boring launches.</h1>
+          <p className="eyebrow mono">Solana memecoin launchpad · Liberté, égalité, baguette</p>
+          <h1>Vive la <em>memecoin</em>. Launches baked fresh on the barricades.</h1>
           <p className="lede">
-            One click. One coin. One legend of France. Every launch draws a random hero or meme (Napoleon, Joan of Arc, d&apos;Artagnan, Pepe, Gigachad
-            and more) who writes your lore, talks back to your holders and fights for your coin on the barricades. Launch it, see who answers the call, and rally the troops.
+            One click. One coin. One champion. Every launch summons a legend of France (Napoleon, Joan of Arc, d&apos;Artagnan, Pepe, Gigachad and more) as
+            your coin&apos;s AI persona. It writes your lore, talks back to your holders, and charges the barricades baguette-first, bonking the rowdy cartoon mob
+            right off the cobblestones of Paris. Launch it, meet your champion, hold the line.
           </p>
           <div className="badges">
             <span className="badge">⚜️ One-click launch</span>

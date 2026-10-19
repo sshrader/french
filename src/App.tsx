@@ -11,7 +11,7 @@ import CoinPage from './pages/CoinPage';
 import Admin from './pages/Admin';
 
 function Hat() {
-  // The Bonkeparte mark: the emperor in his laurels
+  // The BaguettePad mark: the emperor in his laurels
   return <img className="paw" src="/brand-mark.png" width={30} height={30} alt="" style={{ borderRadius: '50%', objectFit: 'cover' }} />;
 }
 
@@ -86,9 +86,9 @@ export default function App() {
       </div>
       <header className="top" ref={topRef}>
         <div className="wrap top-in">
-          <a className="brand" href={href.explore} aria-label="Bonkeparte home">
+          <a className="brand" href={href.explore} aria-label="BaguettePad home">
             <Hat />
-            Bonkeparte
+            BaguettePad
           </a>
           <nav className="nav" aria-label="Main">
             {link('explore', 'Explore')}
@@ -126,7 +126,7 @@ export default function App() {
 
       <footer className="wrap foot muted">
         {IS_MAINNET
-          ? 'Bonkeparte is unaudited beta software. Characters are AI parodies and their posts are not advice. Coins are not endorsed by Bonkeparte. Only risk what you can lose.'
+          ? 'BaguettePad is unaudited beta software. Characters are AI parodies and their posts are not advice. Coins are not endorsed by BaguettePad. Only risk what you can lose.'
           : `Prototype running on ${CLUSTER}. Not audited.`}
       </footer>
     </>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="BaguettePad logo">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%">
+      <stop offset="0" stop-color="#27407f"/>
+      <stop offset="1" stop-color="#0d1633"/>
+    </radialGradient>
+    <linearGradient id="crust" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3c36b"/>
+      <stop offset="0.55" stop-color="#d99436"/>
+      <stop offset="1" stop-color="#a8651f"/>
+    </linearGradient>
+    <linearGradient id="hat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3052"/>
+      <stop offset="1" stop-color="#10142a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe6a3"/>
+      <stop offset="1" stop-color="#c9922c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <!-- gilded ring -->
+  <circle cx="512" cy="512" r="452" fill="none" stroke="url(#gold)" stroke-width="14"/>
+  <circle cx="512" cy="512" r="430" fill="none" stroke="#f6e7b4" stroke-opacity="0.25" stroke-width="3"/>
+
+  <g transform="translate(0 30)">
+  <!-- the baguette, held like a sabre, behind the hat -->
+  <g transform="rotate(-26 512 560)">
+    <rect x="132" y="500" width="760" height="120" rx="60" fill="#000" opacity="0.28" transform="translate(0 12)"/>
+    <rect x="132" y="500" width="760" height="120" rx="60" fill="url(#crust)"/>
+    <rect x="168" y="508" width="688" height="24" rx="12" fill="#fff" opacity="0.24"/>
+    <g stroke="#8f541a" stroke-width="11" stroke-linecap="round" opacity="0.8">
+      <line x1="230" y1="528" x2="256" y2="594"/>
+      <line x1="330" y1="528" x2="356" y2="594"/>
+      <line x1="430" y1="528" x2="456" y2="594"/>
+      <line x1="530" y1="528" x2="556" y2="594"/>
+      <line x1="630" y1="528" x2="656" y2="594"/>
+      <line x1="730" y1="528" x2="756" y2="594"/>
+    </g>
+  </g>
+
+  <!-- the bicorne hat -->
+  <path d="M138 578 C 212 392 360 296 512 296 C 664 296 812 392 886 578 C 790 530 656 498 512 498 C 368 498 234 530 138 578 Z" fill="url(#hat)"/>
+  <path d="M138 578 C 212 392 360 296 512 296 C 664 296 812 392 886 578" fill="none" stroke="url(#gold)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M138 578 C 234 530 368 498 512 498 C 656 498 790 530 886 578" fill="none" stroke="#c9922c" stroke-width="7" stroke-linecap="round" opacity="0.85"/>
+  <path d="M300 372 C 380 330 450 316 512 316" fill="none" stroke="#fff" stroke-opacity="0.18" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- tricolour cockade -->
+  <g transform="translate(512 436)">
+    <circle r="62" fill="#c9922c"/>
+    <circle r="55" fill="#d0302b"/>
+    <circle r="38" fill="#ffffff"/>
+    <circle r="21" fill="#1d3f94"/>
+  </g>
+
+  </g>
+  <!-- three stars above the hat -->
+  <defs><path id="s" d="M0 -26 L7 -8 L26 -8 L11 4 L16 23 L0 12 L-16 23 L-11 4 L-26 -8 L-7 -8Z"/></defs>
+  <g fill="url(#gold)">
+    <use href="#s" transform="translate(512 168) scale(0.95)"/>
+    <use href="#s" transform="translate(372 196) scale(0.75)"/>
+    <use href="#s" transform="translate(652 196) scale(0.75)"/>
+  </g>
+</svg>

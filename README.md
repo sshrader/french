@@ -1,6 +1,6 @@
-# Bonkeparte
+# BaguettePad
 
-A French Revolution flavoured memecoin launchpad on Solana. *Vive la memecoin.* Launch a token in one click, trade it on a Meteora bonding curve, and let each coin's AI character write its lore. Built on the Bonkeparte codebase.
+A French Revolution flavoured memecoin launchpad on Solana (brand assets in `brand/`). *Vive la memecoin.* Launch a token in one click, trade it on a Meteora bonding curve, and let each coin's AI character write its lore. Built on the BaguettePad codebase.
 
 ## Quick start (local)
 
@@ -114,7 +114,7 @@ Each coin page shows a market cap chart. `MARKET_MODE=demo` (the default) draws 
 
 ## Trading on a bonding curve (Meteora)
 
-Bonkeparte uses Meteora's Dynamic Bonding Curve program, so there is no curve code of our own to maintain or audit. The flow:
+BaguettePad uses Meteora's Dynamic Bonding Curve program, so there is no curve code of our own to maintain or audit. The flow:
 
 1. **Once:** `npm run dbc-config -- --check` shows the curve settings. `npm run dbc-config` creates the config on chain with the partner wallet (`.devnet-keypair.json`) and prints `DBC_CONFIG` and `VITE_DBC_CONFIG` for `.env`.
 2. **Each launch:** one transaction creates the token and its curve pool (`src/lib/dbc.ts`). The server checks that the pool exists, came from your config, and was made by the paying wallet (`server/curve.mjs`).
