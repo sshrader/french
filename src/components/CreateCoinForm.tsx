@@ -25,7 +25,9 @@ function friendlyError(e: unknown): string {
   return msg;
 }
 
-export default function CreateCoinForm({ balance, onCreated }: { balance: number | null; onCreated: (c: Coin) => void }) {
+export type Draft = { name: string; symbol: string; description: string; preview: string | null };
+
+export default function CreateCoinForm({ balance, onCreated, onDraft }: { balance: number | null; onCreated: (c: Coin) => void; onDraft?: (d: Draft) => void }) {
   const { connection } = useConnection();
   const wallet = useWallet();
 
@@ -57,6 +59,10 @@ export default function CreateCoinForm({ balance, onCreated }: { balance: number
     setPreview(url);
     return () => URL.revokeObjectURL(url);
   }, [image]);
+
+  useEffect(() => {
+    onDraft?.({ name, symbol, description, preview });
+  }, [onDraft, name, symbol, description, preview]);
 
   const busy = phase !== 'idle' && phase !== 'done';
 
@@ -125,8 +131,8 @@ export default function CreateCoinForm({ balance, onCreated }: { balance: number
   }
 
   return (
-    <form className="card form" onSubmit={submit}>
-      <h3>New coin</h3>
+    <form className="card form decree" onSubmit={submit}>
+      <h3 className="step"><span className="num">I</span> Your coin</h3>
 
       <div className="field">
         <label htmlFor="img">Coin image</label>
@@ -163,21 +169,25 @@ export default function CreateCoinForm({ balance, onCreated }: { balance: number
         <textarea id="desc" value={description} maxLength={280} rows={3} placeholder="What is this coin about?" onChange={(e) => setDescription(e.target.value)} />
       </div>
 
+      <h3 className="step"><span className="num">II</span> Rally the people <span className="muted small">(optional)</span></h3>
+
       <div className="row2">
         <div className="field">
-          <label htmlFor="tw">X / Twitter <span className="muted">(optional)</span></label>
+          <label htmlFor="tw">X / Twitter</label>
           <input id="tw" className="in" type="text" value={twitter} maxLength={100} placeholder="@yourcoin or x.com/yourcoin" onChange={(e) => setTwitter(e.target.value)} autoComplete="off" />
         </div>
         <div className="field">
-          <label htmlFor="tg">Telegram <span className="muted">(optional)</span></label>
+          <label htmlFor="tg">Telegram</label>
           <input id="tg" className="in" type="text" value={telegram} maxLength={100} placeholder="t.me/yourcoin" onChange={(e) => setTelegram(e.target.value)} autoComplete="off" />
         </div>
       </div>
 
       <div className="field">
-        <label htmlFor="web">Website <span className="muted">(optional)</span></label>
+        <label htmlFor="web">Website</label>
         <input id="web" className="in" type="text" value={website} maxLength={200} placeholder="https://yourcoin.xyz" onChange={(e) => setWebsite(e.target.value)} autoComplete="off" />
       </div>
+
+      <h3 className="step"><span className="num">III</span> Opening move</h3>
 
       {CURVE_ON && (
         <div className="field devbuy">
@@ -228,7 +238,7 @@ export default function CreateCoinForm({ balance, onCreated }: { balance: number
       {error && <p className="error" role="alert">{error}</p>}
 
       <button className="btn primary wide" type="submit" disabled={busy || !wallet.publicKey}>
-        {wallet.publicKey ? 'Launch coin' : 'Connect a wallet to launch'}
+        {wallet.publicKey ? 'Launch to the barricades' : 'Connect a wallet to launch'}
       </button>
 
       {created && (
