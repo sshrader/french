@@ -10,6 +10,7 @@ import MarketChart from '../components/MarketChart';
 import PetPark from '../components/PetPark';
 import PetChat from '../components/PetChat';
 import TradeBox from '../components/TradeBox';
+import CreatorFees from '../components/CreatorFees';
 import PostList from '../components/PostList';
 
 const short = (a: string) => `${a.slice(0, 4)}…${a.slice(-4)}`;
@@ -98,6 +99,8 @@ export default function CoinPage({ mint }: { mint: string }) {
           <b>Block-zero dev buy:</b> the creator bought {coin.devBuy.tokens.toLocaleString('en-US', { maximumFractionDigits: 0 })} tokens ({coin.devBuy.pct}% of supply) in the same transaction that created the pool.
         </p>
       )}
+
+      <CreatorFees coin={coin} />
 
       <MarketChart mint={coin.mint} />
 

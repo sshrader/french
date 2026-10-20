@@ -10,7 +10,7 @@
  *   DBC_MIGRATION_MC=300  market cap at which the curve is full and the coin moves to a DEX
  *   DBC_FEE_BPS=100       trading fee in basis points (100 = 1%). Meteora's minimum is 25.
  *   DBC_FEE_CLAIMER=<address>  wallet that can claim your fees (use a hardware wallet or multisig on mainnet). Default: the key-file wallet
- *   DBC_CREATOR_FEE_PCT=0 share of your fees (after Meteora's 20% cut) that goes to the coin's creator, 0-100
+ *   DBC_CREATOR_FEE_PCT=20 share of your fees (after Meteora's 20% cut) that goes to the coin's creator, 0-100
  */
 import 'dotenv/config';
 import { Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
@@ -37,7 +37,7 @@ const num = (name: string, fallback: number) => (process.env[name] ? Number(proc
 const initialMC = num('DBC_INITIAL_MC', 30);
 const migrationMC = num('DBC_MIGRATION_MC', 300);
 const feeBps = num('DBC_FEE_BPS', 100);
-const creatorFeePct = num('DBC_CREATOR_FEE_PCT', 0);
+const creatorFeePct = num('DBC_CREATOR_FEE_PCT', 20);
 
 if (!(initialMC > 0) || !(migrationMC > initialMC)) throw new Error('DBC_MIGRATION_MC must be larger than DBC_INITIAL_MC.');
 if (feeBps < 25) throw new Error('DBC_FEE_BPS must be at least 25 (Meteora minimum).');
