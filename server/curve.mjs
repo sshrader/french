@@ -64,3 +64,24 @@ export async function curveState(connection, poolAddress) {
   states.set(poolAddress, { at: Date.now(), value });
   return value;
 }
+
+let feeCache = { at: 0, value: null };
+
+/** Trading fees sitting in all pools of our config, in SOL: waiting to be claimed (platform + creators) and all-time.
+ *  Cached for 30 seconds so a busy home page does not hammer the RPC. */
+export async function feesWaiting(connection) {
+  if (feeCache.value && Date.now() - feeCache.at < 30_000) return feeCache.value;
+  const fees = await client(connection).state.getPoolsFeesByConfig(new PublicKey(dbcConfig()));
+  const toSol = (b) => Number(b?.toString?.() ?? 0) / 1e9;
+  let platform = 0;
+  let creators = 0;
+  let allTime = 0;
+  for (const f of fees) {
+    platform += toSol(f.partnerQuoteFee);
+    creators += toSol(f.creatorQuoteFee);
+    allTime += toSol(f.totalTradingQuoteFee);
+  }
+  const value = { waiting: platform + creators, platform, creators, allTime, pools: fees.length };
+  feeCache = { at: Date.now(), value };
+  return value;
+}

@@ -11,7 +11,7 @@ import { llmInfo } from './llm.mjs';
 import { rateLimit, budgetUsed } from './limits.mjs';
 import { listPosts, makePost, startScheduler } from './lore.mjs';
 import { getMarket } from './market.mjs';
-import { curveEnabled, verifyPool } from './curve.mjs';
+import { curveEnabled, feesWaiting, verifyPool } from './curve.mjs';
 import { applyGuards, checkNetwork, launchAllowed, launchesRestricted } from './guard.mjs';
 import * as store from './store.mjs';
 
@@ -291,6 +291,16 @@ app.get('/api/coins/:mint', async (req, res) => {
 });
 
 // Market cap for every coin (no history), for the Explore page.
+app.get('/api/fees', async (_req, res) => {
+  if (!curveEnabled()) return res.json({ enabled: false });
+  try {
+    res.json({ enabled: true, ...(await feesWaiting(connection)) });
+  } catch (e) {
+    console.error('fees failed:', e.message);
+    res.json({ enabled: false });
+  }
+});
+
 app.get('/api/market', async (_req, res) => {
   const coins = await store.get('coins.json', []);
   const out = {};

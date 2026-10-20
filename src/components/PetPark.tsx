@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { listCoins, listPosts, type Coin, type Post } from '../lib/api';
+import { getFees, listCoins, listPosts, type Coin, type FeesWaiting, type Post } from '../lib/api';
 import { H, SCALE, W, createWorld, type WorldPet } from '../lib/petWorld';
 import { speciesOf } from '../lib/pets';
 import { href } from '../router';
@@ -32,6 +32,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
   const [latest, setLatest] = useState<Record<string, string>>({});
   const [routed, setRouted] = useState(0);
   const [gain, setGain] = useState(0);
+  const [fees, setFees] = useState<FeesWaiting | null>(null);
   const [bubble, setBubble] = useState<{ mint: string; text: string } | null>(null);
   const playRef = useRef(playing && visible);
   playRef.current = playing && visible;
@@ -65,6 +66,21 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
         })
         .catch(() => {});
     };
+    load();
+    const t = setInterval(load, 30000);
+    return () => {
+      alive = false;
+      clearInterval(t);
+    };
+  }, []);
+
+  // Real trading fees sitting in the pools, for everyone to see.
+  useEffect(() => {
+    let alive = true;
+    const load = () =>
+      getFees()
+        .then((f) => alive && setFees(f))
+        .catch(() => {});
     load();
     const t = setInterval(load, 30000);
     return () => {
@@ -217,6 +233,12 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
           </div>
         )}
       </div>
+      {fees?.enabled && (
+        <p className="park-foot feebar mono" role="status">
+          <span className="muted">Fees waiting to be claimed</span> <b>{(fees.waiting ?? 0).toFixed(4)} SOL</b>
+          <span className="muted small"> · all-time fees {(fees.allTime ?? 0).toFixed(4)} SOL across {fees.pools ?? 0} {fees.pools === 1 ? 'coin' : 'coins'}</span>
+        </p>
+      )}
       <p className="park-foot bonkpool mono" role="status" aria-live="off">
         <span className="muted">Bonk pool</span> <b>{(routed * BONK_VALUE).toFixed(3)}</b> <span className="muted">baguettes</span>
         {gain > 0 && <span className="bonk-gain" key={routed}> +{BONK_VALUE.toFixed(3)}</span>}
