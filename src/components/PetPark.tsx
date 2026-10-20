@@ -6,6 +6,7 @@ import { href } from '../router';
 import { petLook } from './PetAvatar';
 
 const MAX_PETS = 40;
+const BONK_VALUE = 0.001; // game points per bonked mob, not SOL
 const shorten = (s: string, n = 14) => (s.length > n ? `${s.slice(0, n - 1)}…` : s);
 
 function toPet(c: Coin): WorldPet {
@@ -30,6 +31,7 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
   const [coins, setCoins] = useState<Coin[]>(coin ? [coin] : []);
   const [latest, setLatest] = useState<Record<string, string>>({});
   const [routed, setRouted] = useState(0);
+  const [gain, setGain] = useState(0);
   const [bubble, setBubble] = useState<{ mint: string; text: string } | null>(null);
   const playRef = useRef(playing && visible);
   playRef.current = playing && visible;
@@ -112,7 +114,13 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
   }, [world, placeTags, shown]);
 
   useEffect(() => {
-    const t = setInterval(() => setRouted(world.stats().routed), 1000);
+    const t = setInterval(() => {
+      const r = world.stats().routed;
+      setRouted((prev) => {
+        setGain(r - prev);
+        return r;
+      });
+    }, 1000);
     return () => clearInterval(t);
   }, [world]);
 
@@ -209,9 +217,11 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
           </div>
         )}
       </div>
-      <p className="muted small park-foot">
-        Cartoon mob bonked so far: {routed}. Tap a character for a hop and its latest front-line dispatch. Name tags show each character's coin and open its page.{pet ? ` The arrow marks ${pet.name}.` : ''}
-        {reduce ? ' Motion is paused because your device asks for less movement. Press Play to start it.' : ''}
+      <p className="park-foot bonkpool mono" role="status" aria-live="off">
+        <span className="muted">Bonk pool</span> <b>{(routed * BONK_VALUE).toFixed(3)}</b> <span className="muted">baguettes</span>
+        {gain > 0 && <span className="bonk-gain" key={routed}> +{BONK_VALUE.toFixed(3)}</span>}
+        <span className="muted small"> · {BONK_VALUE.toFixed(3)} per mob bonked. Just for fun, not real money.</span>
+        {reduce ? <span className="muted small"> Motion is paused. Press Play.</span> : null}
       </p>
     </section>
   );

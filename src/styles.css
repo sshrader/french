@@ -423,3 +423,8 @@ a.lr:hover { background: var(--surface-2); }
 .hero .brigade { text-align: left; margin-top: 0; }
 .hero .brigade .cta { margin-top: 0; }
 .hero { padding-block: 28px 20px; }
+
+.bonkpool { font-size: 13px; }
+.bonk-gain { color: var(--ok); font-weight: 700; animation: bonkpop 1.2s ease-out forwards; display: inline-block; }
+@keyframes bonkpop { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) { .bonk-gain { animation: none; } }
