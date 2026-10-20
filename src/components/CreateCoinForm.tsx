@@ -121,7 +121,7 @@ export default function CreateCoinForm({ balance, onCreated, onDraft }: { balanc
       setPhase('registering');
       const coin = await registerCoin({ mint, signature, creator: wallet.publicKey.toBase58(), uploadId: up.uploadId });
       setCreated(coin);
-      const ext = platformUrl(platform, coin.mint);
+      const ext = platformUrl(platform, coin.mint, coin.pool);
       if (ext) window.open(ext, '_blank', 'noopener');
       setPhase('done');
       onCreated(coin);
@@ -283,8 +283,8 @@ export default function CreateCoinForm({ balance, onCreated, onDraft }: { balanc
           <a className="btn primary big" href={href.coin(created.mint)}>
             Go to your coin page →
           </a>
-          {platformUrl(platform, created.mint) && (
-            <a className="btn" href={platformUrl(platform, created.mint)!} target="_blank" rel="noreferrer">
+          {platformUrl(platform, created.mint, created.pool) && (
+            <a className="btn" href={platformUrl(platform, created.mint, created.pool)!} target="_blank" rel="noreferrer">
               Open on {PLATFORMS.find((p) => p.id === platform)?.label} →
             </a>
           )}
