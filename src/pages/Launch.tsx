@@ -15,7 +15,7 @@ export default function Launch({ balance, onCreated }: { balance: number | null;
   return (
     <div className="wrap">
       <header className="page-h launch-h">
-        <p className="eyebrow mono">Décret de lancement</p>
+        <p className="eyebrow mono">Launch decree</p>
         <h1>Launch a coin</h1>
         <p className="lede">
           Three short sections and one wallet approval. A famous French hero or a French-themed meme is paired to your coin when it is registered, and it fights for you from that moment on.
@@ -26,7 +26,7 @@ export default function Launch({ balance, onCreated }: { balance: number | null;
         <CreateCoinForm balance={balance} onCreated={onCreated} onDraft={setDraft} />
         <aside className="launch-side">
           <section className="card ticket" aria-label="Live preview">
-            <p className="eyebrow mono">Aperçu · live preview</p>
+            <p className="eyebrow mono">Live preview</p>
             <div className="ticket-top">
               <div className="ticket-img">{draft.preview ? <img src={draft.preview} alt="" /> : <span className="muted small">Image</span>}</div>
               <div>

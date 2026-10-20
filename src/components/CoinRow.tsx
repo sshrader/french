@@ -5,7 +5,7 @@ import { ago } from '../lib/time';
 import { href } from '../router';
 import PetAvatar from './PetAvatar';
 
-// One coin as a row of the "La Carte" ledger view.
+// One coin as a row of the "List" ledger view.
 export default function CoinRow({ n, coin, market }: { n: number; coin: Coin; market?: Omit<Market, 'history'> }) {
   const cat = coin.cat;
   const ch = market?.change24h;

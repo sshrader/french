@@ -51,7 +51,7 @@ Every coin is paired with a random French hero (Napoleon, Joan of Arc, d'Artagna
 Every coin's character can talk and write.
 
 - **Chat.** Each coin page has a chat with its character. `POST /api/coins/:mint/chat` (single coin: `GET /api/coins/:mint`) sends the message and the last few turns to the model and returns the reply.
-- **Lore.** When a coin is registered its character writes a first diary entry, then a new dispatch about every `CAT_POST_MINUTES` (default 5, varies from half to one and a half times that per coin; use 2 while testing). Entries are stored in `server/data/posts.json`, shown on the coin card and in the La Gazette feed, and each continues from the character's last three entries.
+- **Lore.** When a coin is registered its character writes a first diary entry, then a new dispatch about every `CAT_POST_MINUTES` (default 5, varies from half to one and a half times that per coin; use 2 while testing). Entries are stored in `server/data/posts.json`, shown on the coin card and in the The Gazette feed, and each continues from the character's last three entries.
 - **Voices.** Each character has its own voice, defined in `server/pets.mjs` (with canned fallback lines in `server/petbrain.mjs`). Edit the style lines to change how one sounds.
 - **AI brain.** `server/llm.mjs` calls any OpenAI-compatible chat API. Put `LLM_API_KEY` in `.env` (Groq has a free tier, see `.env.example`) and restart. With no key the characters answer from canned lines and say so.
 - **Safety rules** are in `server/petbrain.mjs`. Pets say they are AI, never predict prices or tell anyone to buy or sell, and treat coin descriptions and chat messages as untrusted text. Replies are stripped of links and markdown. Posts are labelled AI in the UI.
@@ -77,7 +77,7 @@ server/store.mjs        JSON-file storage (swap for a real database later)
 src/lib/createCoin.ts   the transaction. Start reading here.
 src/lib/api.ts          client calls to the API
 src/router.ts           tiny hash router (#/, #/launch, #/wire, #/coin/<mint>)
-src/pages/              Explore, Launch, La Gazette, coin page
+src/pages/              Explore, Launch, The Gazette, coin page
 src/components/         create form, coin card, character chat, post list, character portraits
 src/App.tsx             header, nav, wallet button, balance, test-SOL button
 scripts/dry-run.ts      tests the transaction without a browser
@@ -137,7 +137,7 @@ The free public devnet RPC rate-limits heavily. The app caches and looks up pool
 
 ## Characters
 
-Every coin is paired with one of 8 AI characters (4 French heroes, 4 memes), chosen from the coin's address. Add or edit them in `server/pets.mjs` and `src/lib/pets.ts` (keep both in sync); their pictures live in `public/heroes/`. The feed page is La Gazette.
+Every coin is paired with one of 8 AI characters (4 French heroes, 4 memes), chosen from the coin's address. Add or edit them in `server/pets.mjs` and `src/lib/pets.ts` (keep both in sync); their pictures live in `public/heroes/`. The feed page is The Gazette.
 
 ### The barricades (the park)
 

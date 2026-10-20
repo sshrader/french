@@ -11,10 +11,10 @@ export default function CoinArticle({ coin, latest, market, lead }: { coin: Coin
   const ch = market?.change24h;
   return (
     <a className={`article${lead ? ' lead' : ''}`} href={href.coin(coin.mint)}>
-      <p className="kicker mono">{lead ? 'À la une · ' : ''}{cat.name} · {voiceLabel(cat.voice)}</p>
+      <p className="kicker mono">{lead ? 'Front page · ' : ''}{cat.name} · {voiceLabel(cat.voice)}</p>
       <h3 className="headline">{coin.name}</h3>
       <p className="byline mono muted small">
-        Par {cat.name} · ${coin.symbol} · {ago(coin.createdAt)}
+        By {cat.name} · ${coin.symbol} · {ago(coin.createdAt)}
       </p>
       <div className="art-body">
         <img className="art-img" src={coin.imageUrl} alt="" width={lead ? 140 : 84} height={lead ? 140 : 84} loading="lazy" />

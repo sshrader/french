@@ -95,7 +95,7 @@ export default function Explore() {
         </label>
         <div className="seg" role="group" aria-label="View">
           <button type="button" className={view === 'cards' ? 'on' : ''} aria-pressed={view === 'cards'} onClick={() => pickView('cards')}>Gazette</button>
-          <button type="button" className={view === 'list' ? 'on' : ''} aria-pressed={view === 'list'} onClick={() => pickView('list')}>La Carte</button>
+          <button type="button" className={view === 'list' ? 'on' : ''} aria-pressed={view === 'list'} onClick={() => pickView('list')}>List</button>
         </div>
       </section>
 

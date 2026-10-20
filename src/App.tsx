@@ -68,7 +68,7 @@ export default function App() {
     }
   }
 
-  const today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   const section = route.name === 'coin' ? 'explore' : route.name === 'admin' ? '' : route.name;
   const link = (name: 'explore' | 'launch' | 'wire', label: string) => (
     <a className={section === name ? 'on' : ''} href={href[name]} aria-current={section === name ? 'page' : undefined}>
@@ -92,7 +92,7 @@ export default function App() {
             <Hat />
             <span>BaguettePad</span>
           </a>
-          <span className="mast-motto mono">Liberté · Égalité · Baguette</span>
+          <span className="mast-motto mono">Liberty · Equality · Baguette</span>
         </div>
       </div>
       <header className="top" ref={topRef}>
@@ -100,7 +100,7 @@ export default function App() {
           <nav className="nav" aria-label="Main">
             {link('explore', 'Explore')}
             {link('launch', 'Launch')}
-            {link('wire', 'La Gazette')}
+            {link('wire', 'The Gazette')}
           </nav>
           <div className="wallet-area">
             {publicKey && balance !== null && <span className="bal mono">{balance.toFixed(3)} SOL</span>}
