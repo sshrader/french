@@ -235,8 +235,8 @@ export default function PetPark({ coin, line }: { coin?: Coin; line?: string }) 
       </div>
       {fees?.enabled && (
         <p className="park-foot feebar mono" role="status">
-          <span className="muted">Fees waiting to be claimed</span> <b>{(fees.waiting ?? 0).toFixed(4)} SOL</b>
-          <span className="muted small"> · all-time fees {(fees.allTime ?? 0).toFixed(4)} SOL across {fees.pools ?? 0} {fees.pools === 1 ? 'coin' : 'coins'}</span>
+          <span className="muted">Creator fees waiting to be claimed</span> <b>{(fees.creators ?? 0).toFixed(4)} SOL</b>
+          <span className="muted small"> · across {fees.pools ?? 0} {fees.pools === 1 ? 'coin' : 'coins'}</span>
         </p>
       )}
       <p className="park-foot bonkpool mono" role="status" aria-live="off">

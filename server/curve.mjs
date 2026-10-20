@@ -67,7 +67,7 @@ export async function curveState(connection, poolAddress) {
 
 let feeCache = { at: 0, value: null };
 
-/** Trading fees sitting in all pools of our config, in SOL: waiting to be claimed (platform + creators) and all-time.
+/** Creator trading fees sitting in all pools of our config, in SOL, waiting to be claimed.
  *  Cached for 30 seconds so a busy home page does not hammer the RPC. */
 export async function feesWaiting(connection) {
   if (feeCache.value && Date.now() - feeCache.at < 30_000) return feeCache.value;
@@ -81,7 +81,10 @@ export async function feesWaiting(connection) {
     creators += toSol(f.creatorQuoteFee);
     allTime += toSol(f.totalTradingQuoteFee);
   }
-  const value = { waiting: platform + creators, platform, creators, allTime, pools: fees.length };
+  // Only the creators' side is public. The platform's own share and the all-time totals stay private.
+  void platform;
+  void allTime;
+  const value = { creators, pools: fees.length };
   feeCache = { at: Date.now(), value };
   return value;
 }
