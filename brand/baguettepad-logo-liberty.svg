@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="BaguettePad logo: liberty cap over crossed baguettes">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#27407f"/><stop offset="1" stop-color="#0d1633"/></radialGradient>
+    <linearGradient id="crust" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3c36b"/><stop offset=".55" stop-color="#d99436"/><stop offset="1" stop-color="#a8651f"/></linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ef4a42"/><stop offset="1" stop-color="#a81f1f"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe6a3"/><stop offset="1" stop-color="#c9922c"/></linearGradient>
+    <g id="loaf">
+      <rect x="-330" y="-52" width="660" height="104" rx="52" fill="#000" opacity=".28" transform="translate(0 10)"/>
+      <rect x="-330" y="-52" width="660" height="104" rx="52" fill="url(#crust)"/>
+      <rect x="-296" y="-44" width="592" height="20" rx="10" fill="#fff" opacity=".24"/>
+      <g stroke="#8f541a" stroke-width="10" stroke-linecap="round" opacity=".8">
+        <line x1="-200" y1="-30" x2="-176" y2="30"/><line x1="-100" y1="-30" x2="-76" y2="30"/><line x1="0" y1="-30" x2="24" y2="30"/><line x1="100" y1="-30" x2="124" y2="30"/><line x1="200" y1="-30" x2="224" y2="30"/>
+      </g>
+    </g>
+    <path id="s" d="M0 -26 L7 -8 L26 -8 L11 4 L16 23 L0 12 L-16 23 L-11 4 L-26 -8 L-7 -8Z"/>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <circle cx="512" cy="512" r="452" fill="none" stroke="url(#gold)" stroke-width="14"/>
+  <circle cx="512" cy="512" r="430" fill="none" stroke="#f6e7b4" stroke-opacity=".25" stroke-width="3"/>
+  <!-- crossed baguettes -->
+  <use href="#loaf" transform="translate(512 640) rotate(-32)"/>
+  <use href="#loaf" transform="translate(512 640) rotate(32)"/>
+  <!-- liberty (phrygian) cap -->
+  <path d="M300 560 C 290 380 380 250 520 250 C 600 250 650 300 700 330 C 740 352 780 340 800 318 C 800 380 740 420 690 400 C 700 470 724 520 724 560 Z" fill="url(#cap)"/>
+  <path d="M300 560 C 290 380 380 250 520 250 C 600 250 650 300 700 330 C 740 352 780 340 800 318" fill="none" stroke="url(#gold)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M340 400 C 370 320 430 280 500 272" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="12" stroke-linecap="round"/>
+  <!-- cap band -->
+  <rect x="284" y="540" width="456" height="64" rx="22" fill="#f6efe0"/>
+  <rect x="284" y="540" width="456" height="64" rx="22" fill="none" stroke="url(#gold)" stroke-width="8"/>
+  <!-- cockade -->
+  <g transform="translate(512 430)"><circle r="62" fill="#c9922c"/><circle r="55" fill="#d0302b"/><circle r="38" fill="#fff"/><circle r="21" fill="#1d3f94"/></g>
+  <g fill="url(#gold)">
+    <use href="#s" transform="translate(512 166) scale(.95)"/><use href="#s" transform="translate(372 194) scale(.75)"/><use href="#s" transform="translate(652 194) scale(.75)"/>
+  </g>
+</svg>
